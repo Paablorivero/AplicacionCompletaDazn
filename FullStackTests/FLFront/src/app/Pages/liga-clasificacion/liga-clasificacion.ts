@@ -3,11 +3,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LigasService } from '../../Services/ligas.service';
 import { Ligaclasificaciondto } from '../../interfaces/dtos/ligaclasificaciondto.interface';
 import { EquipoligaService } from '../../Services/equipoliga.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // Carga y ordena la clasificación de la liga seleccionada.
 @Component({
   selector: 'app-liga-clasificacion',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './liga-clasificacion.html',
   styleUrl: './liga-clasificacion.css',
 })

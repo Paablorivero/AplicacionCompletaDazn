@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="#3b82f6">
+    <!-- Defensa haciendo una entrada deslizante (sliding tackle) -->
+    <!-- Cabeza -->
+    <circle cx="52" cy="58" r="14"/>
+    <!-- Torso inclinado hacia atrás, casi horizontal -->
+    <path d="M60 70 L130 88 L128 102 L58 84 Z"/>
+    <!-- Brazo trasero apoyado en el suelo -->
+    <path d="M56 76 L30 100 L36 108 L62 86 Z"/>
+    <!-- Mano apoyada -->
+    <circle cx="32" cy="104" r="5"/>
+    <!-- Brazo delantero levantado para equilibrio -->
+    <path d="M90 78 L72 52 L78 48 L98 72 Z"/>
+    <!-- Pierna delantera estirada (la que entra) -->
+    <path d="M128 90 L190 108 L188 118 L126 102 Z"/>
+    <!-- Pie delantero -->
+    <path d="M186 106 L196 112 L192 122 L186 118 Z"/>
+    <!-- Pierna trasera doblada -->
+    <path d="M100 92 L80 140 L92 144 L110 98 Z"/>
+    <!-- Pantorrilla trasera hacia atrás -->
+    <path d="M80 138 L60 156 L68 164 L90 146 Z"/>
+    <!-- Pie trasero -->
+    <path d="M56 154 L68 164 L64 172 L52 162 Z"/>
+  </g>
+</svg>

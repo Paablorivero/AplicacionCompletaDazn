@@ -18,7 +18,7 @@
               d="m2.25 12 8.954-8.955a1.126 1.126 0 0 1 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          <span>Inicio</span>
+          <span>{{ 'nav.home' | t }}</span>
         </a>
         <a routerLink="/daznfantasy/news" routerLinkActive="nav-active" class="nav-pill">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
               d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5"
             />
           </svg>
-          <span>Noticias</span>
+          <span>{{ 'nav.news' | t }}</span>
         </a>
         <a routerLink="/daznfantasy/leagues" routerLinkActive="nav-active" class="nav-pill">
           <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@
               d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-4.5A3.375 3.375 0 0 0 13.125 10.875h-2.25A3.375 3.375 0 0 0 7.5 14.25v4.5m9 0H7.5m4.5-12a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
             />
           </svg>
-          <span>Ligas</span>
+          <span>{{ 'nav.leagues' | t }}</span>
         </a>
         <a
           routerLink="/daznfantasy/widgets"
@@ -57,11 +57,44 @@
         </a>
         @if (isAdmin) {
           <a routerLink="/daznfantasy/admin/config" routerLinkActive="nav-active" class="nav-pill nav-pill-admin">
-            <span>Admin</span>
+            <span>{{ 'nav.admin' | t }}</span>
           </a>
         }
       }
       <div class="nav-divider"></div>
+
+      <!-- Language selector -->
+      <div class="lang-selector">
+        <button type="button" class="nav-pill lang-toggle" (click)="toggleLangMenu()">
+          @if (isImageFlag(currentFlag)) {
+            <img [src]="currentFlag" alt="" class="lang-flag-img" />
+          } @else {
+            <span class="lang-flag">{{ currentFlag }}</span>
+          }
+          <svg class="nav-icon lang-chevron" [class.lang-chevron-open]="langMenuOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        @if (langMenuOpen()) {
+          <div class="lang-dropdown" (mouseleave)="closeLangMenu()">
+            @for (lang of languages; track lang.code) {
+              <button
+                type="button"
+                class="lang-option"
+                [class.lang-option-active]="lang.code === ts.currentLang()"
+                (click)="selectLang(lang.code)"
+              >
+                @if (isImageFlag(lang.flag)) {
+                  <img [src]="lang.flag" [alt]="lang.label" class="lang-flag-img" />
+                } @else {
+                  <span class="lang-flag">{{ lang.flag }}</span>
+                }
+                <span>{{ lang.label }}</span>
+              </button>
+            }
+          </div>
+        }
+      </div>
 
       @if (mostrarBotonEntrar()) {
         @if (isLogedIn) {
@@ -74,7 +107,7 @@
                 d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
               />
             </svg>
-            <span>Salir</span>
+            <span>{{ 'nav.logout' | t }}</span>
           </button>
         } @else {
           <a
@@ -90,7 +123,7 @@
                 d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
               />
             </svg>
-            <span>Entrar</span>
+            <span>{{ 'nav.login' | t }}</span>
           </a>
         }
       }
@@ -98,11 +131,42 @@
 
     @if (mostrarBotonEntrar()) {
       <!-- Hamburger button mobile -->
-      <button class="header-hamburger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
-      <span class="hamburger-line" [class.open]="menuOpen()"></span>
-      <span class="hamburger-line" [class.open]="menuOpen()"></span>
-      <span class="hamburger-line" [class.open]="menuOpen()"></span>
-    </button>
+      <div class="header-mobile-actions">
+        <!-- Language selector mobile -->
+        <div class="lang-selector lang-selector-mobile">
+          <button type="button" class="nav-pill lang-toggle" (click)="toggleLangMenu()">
+            @if (isImageFlag(currentFlag)) {
+              <img [src]="currentFlag" alt="" class="lang-flag-img" />
+            } @else {
+              <span class="lang-flag">{{ currentFlag }}</span>
+            }
+          </button>
+          @if (langMenuOpen()) {
+            <div class="lang-dropdown" (mouseleave)="closeLangMenu()">
+              @for (lang of languages; track lang.code) {
+                <button
+                  type="button"
+                  class="lang-option"
+                  [class.lang-option-active]="lang.code === ts.currentLang()"
+                  (click)="selectLang(lang.code)"
+                >
+                  @if (isImageFlag(lang.flag)) {
+                    <img [src]="lang.flag" [alt]="lang.label" class="lang-flag-img" />
+                  } @else {
+                    <span class="lang-flag">{{ lang.flag }}</span>
+                  }
+                  <span>{{ lang.label }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+        <button class="header-hamburger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
+          <span class="hamburger-line" [class.open]="menuOpen()"></span>
+          <span class="hamburger-line" [class.open]="menuOpen()"></span>
+          <span class="hamburger-line" [class.open]="menuOpen()"></span>
+        </button>
+      </div>
     }
     
     
@@ -126,7 +190,7 @@
               d="m2.25 12 8.954-8.955a1.126 1.126 0 0 1 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          Inicio
+          {{ 'nav.home' | t }}
         </a>
         <a
           routerLink="/daznfantasy/news"
@@ -142,7 +206,7 @@
               d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5"
             />
           </svg>
-          Noticias
+          {{ 'nav.news' | t }}
         </a>
         <a
           routerLink="/daznfantasy/leagues"
@@ -158,7 +222,7 @@
               d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-4.5A3.375 3.375 0 0 0 13.125 10.875h-2.25A3.375 3.375 0 0 0 7.5 14.25v4.5m9 0H7.5m4.5-12a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
             />
           </svg>
-          Ligas
+          {{ 'nav.leagues' | t }}
         </a>
         <a
           routerLink="/daznfantasy/widgets"
@@ -181,7 +245,7 @@
             class="nav-mobile-link nav-mobile-admin"
             (click)="closeMenu()"
           >
-            Admin
+            {{ 'nav.admin' | t }}
           </a>
         }
       }
@@ -197,7 +261,7 @@
               d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
             />
           </svg>
-          Salir
+          {{ 'nav.logout' | t }}
         </button>
       } @else {
         <a
@@ -214,7 +278,7 @@
               d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
             />
           </svg>
-          Entrar
+          {{ 'nav.login' | t }}
         </a>
       }
     </nav>

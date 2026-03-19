@@ -19,11 +19,12 @@
 
 .noticias-filter-select,
 .noticias-filter-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #ffffff;
   padding: 0.5rem 0.75rem;
-  border-radius: 0.65rem;
+  border-radius: 0.75rem;
   font-size: 0.85rem;
   min-width: 180px;
   transition: all 0.3s ease;
@@ -91,8 +92,9 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   cursor: pointer;
   transition: all 0.3s ease;
 }

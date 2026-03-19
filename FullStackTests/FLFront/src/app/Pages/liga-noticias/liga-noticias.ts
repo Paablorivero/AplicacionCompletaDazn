@@ -4,11 +4,12 @@ import { NoticiasService } from '../../Services/noticias-service';
 import { NoticiaInterface } from '../../interfaces/noticia-interface';
 import { TarjetaNoticia } from '../../Components/tarjeta-noticia/tarjeta-noticia';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // Gestiona noticias, filtros y paginación para la portada de actualidad.
 @Component({
   selector: 'app-liga-noticias',
-  imports: [TarjetaNoticia, FormsModule, RouterLink],
+  imports: [TarjetaNoticia, FormsModule, RouterLink, TranslatePipe],
   templateUrl: './liga-noticias.html',
   styleUrl: './liga-noticias.css',
 })

@@ -12,11 +12,11 @@
 
 .center-glow {
   position: fixed;
-  width: min(500px, 88vw);
-  height: min(300px, 56vh);
+  width: min(600px, 90vw);
+  height: min(400px, 60vh);
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, rgba(255,237,0,0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(255,237,0,0.06) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -37,4 +37,23 @@
 .btn {
   background-color: #FFED00;
   border-color: #FFED00;
+}
+
+.page404-content {
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(32px) saturate(1.4);
+  -webkit-backdrop-filter: blur(32px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem;
+  padding: 3rem 3rem;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 640px) {
+  .page404-content {
+    padding: 2rem 1.5rem;
+  }
 }

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="#f59e0b">
+    <!-- Portero haciendo una parada: cuerpo estirado lateralmente, brazos arriba -->
+    <!-- Cabeza -->
+    <circle cx="100" cy="32" r="16"/>
+    <!-- Torso inclinado -->
+    <path d="M88 46 L78 110 L122 110 L112 46 Z"/>
+    <!-- Brazo izquierdo estirado arriba-izquierda -->
+    <path d="M88 52 L42 20 L38 28 L82 62 Z"/>
+    <!-- Mano izquierda (guante) -->
+    <circle cx="40" cy="22" r="8"/>
+    <!-- Brazo derecho estirado arriba-derecha -->
+    <path d="M112 52 L158 24 L162 32 L118 62 Z"/>
+    <!-- Mano derecha (guante) -->
+    <circle cx="160" cy="26" r="8"/>
+    <!-- Pierna izquierda separada -->
+    <path d="M82 108 L60 170 L72 174 L92 114 Z"/>
+    <!-- Pie izquierdo -->
+    <path d="M56 168 L72 174 L72 182 L52 178 Z"/>
+    <!-- Pierna derecha separada -->
+    <path d="M108 108 L130 170 L118 174 L98 114 Z"/>
+    <!-- Pie derecho -->
+    <path d="M134 168 L118 174 L118 182 L138 178 Z"/>
+  </g>
+</svg>

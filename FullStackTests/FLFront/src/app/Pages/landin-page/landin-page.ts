@@ -2,11 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../Services/auth-service.service';
 import {TemporadaService} from '../../Services/temporada.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-landin-page',
   imports: [
-    RouterLink
+    RouterLink,
+    TranslatePipe,
   ],
   templateUrl: './landin-page.html',
   styleUrl: './landin-page.css',

@@ -11,11 +11,12 @@ import {UsuariosService} from '../../Services/usuarios.service';
 import {Liga} from '../../interfaces/liga.interface';
 import {LigasService} from '../../Services/ligas.service';
 import {EquipoDataService} from '../../Services/equipo-data.service';
+import {TranslatePipe} from '../../pipes/translate.pipe';
 
 // Gestiona la carga de plantilla y los cambios de jugadores en la alineación.
 @Component({
   selector: 'app-liga-plantilla',
-  imports: [JugadorAlineacionComponent],
+  imports: [JugadorAlineacionComponent, TranslatePipe],
   templateUrl: './liga-plantilla.html',
   styleUrl: './liga-plantilla.css',
   standalone: true

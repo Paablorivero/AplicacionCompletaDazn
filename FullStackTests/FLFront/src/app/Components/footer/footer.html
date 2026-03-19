@@ -1,19 +1,15 @@
 <footer class="site-footer">
-  <!-- Gradient separator -->
   <div class="footer-gradient-line"></div>
 
   <div class="footer-inner">
-    <!-- Top section: logo + columns -->
     <div class="footer-top">
-      <!-- Brand column -->
       <div class="footer-brand">
         <a routerLink="/daznfantasy" class="footer-logo-link">
           <img src="/images/LOGO_FINAL_VERSION%20(1).svg" alt="FNTS Logo" class="footer-logo" />
         </a>
         <p class="footer-tagline">
-          La fantasy de LaLiga powered by DAZN. Crea tu equipo, compite y demuestra que eres el mejor mister.
+          {{ 'footer.tagline' | t }}
         </p>
-        <!-- Social icons -->
         <div class="footer-socials">
           <a href="https://x.com/DAZNFutbol" class="social-link" aria-label="Twitter / X">
             <svg viewBox="0 0 24 24" fill="currentColor" class="social-icon">
@@ -33,33 +29,31 @@
         </div>
       </div>
 
-      <!-- Link columns -->
       <div class="footer-columns">
         <div class="footer-col">
-          <h4 class="footer-col-title">Producto</h4>
-          <a routerLink="/daznfantasy/news" class="footer-link">Noticias</a>
-          <a routerLink="/daznfantasy/leagues" class="footer-link">Ligas</a>
-          <a routerLink="/daznfantasy/home" class="footer-link">Dashboard</a>
+          <h4 class="footer-col-title">{{ 'footer.product' | t }}</h4>
+          <a routerLink="/daznfantasy/news" class="footer-link">{{ 'footer.news' | t }}</a>
+          <a routerLink="/daznfantasy/leagues" class="footer-link">{{ 'footer.leagues' | t }}</a>
+          <a routerLink="/daznfantasy/home" class="footer-link">{{ 'footer.dashboard' | t }}</a>
         </div>
         <div class="footer-col">
-          <h4 class="footer-col-title">Empresa</h4>
-          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">Sobre nosotros</a>
-          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">Contacto</a>
-          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">Empleos</a>
+          <h4 class="footer-col-title">{{ 'footer.company' | t }}</h4>
+          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">{{ 'footer.about' | t }}</a>
+          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">{{ 'footer.contact' | t }}</a>
+          <a href="https://www.dazn.com/es-ES/help/articles/16173719210909-aviso-legal" class="footer-link">{{ 'footer.jobs' | t }}</a>
         </div>
         <div class="footer-col">
-          <h4 class="footer-col-title">Legal</h4>
-          <a href="https://www.dazn.com/es-ES/help/articles/16391473315101-condiciones-de-uso" class="footer-link">Términos de uso</a>
-          <a href="https://www.dazn.com/es-ES/help/articles/16394152093597-politica-de-privacidad-y-cookies-de-DAZN" class="footer-link">Privacidad</a>
-          <a href="https://www.dazn.com/es-ES/help/articles/16394152093597-politica-de-privacidad-y-cookies-de-DAZN" class="footer-link">Cookies</a>
+          <h4 class="footer-col-title">{{ 'footer.legal' | t }}</h4>
+          <a href="https://www.dazn.com/es-ES/help/articles/16391473315101-condiciones-de-uso" class="footer-link">{{ 'footer.terms' | t }}</a>
+          <a href="https://www.dazn.com/es-ES/help/articles/16394152093597-politica-de-privacidad-y-cookies-de-DAZN" class="footer-link">{{ 'footer.privacy' | t }}</a>
+          <a href="https://www.dazn.com/es-ES/help/articles/16394152093597-politica-de-privacidad-y-cookies-de-DAZN" class="footer-link">{{ 'footer.cookies' | t }}</a>
         </div>
       </div>
     </div>
 
-    <!-- Bottom bar -->
     <div class="footer-bottom">
       <p class="footer-copyright">
-        &copy; 2025–{{ currentYear }} DAZN Group Ltd. Todos los derechos reservados.
+        &copy; 2025–{{ currentYear }} {{ 'footer.copyright' | t }}
       </p>
     </div>
   </div>

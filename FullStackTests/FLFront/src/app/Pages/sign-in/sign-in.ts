@@ -3,10 +3,11 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { Router, RouterLink } from "@angular/router";
 import { RegisterForm } from '../../interfaces/register-request.interface';
 import { AuthServiceService } from '../../Services/auth-service.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TranslatePipe],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css',
 })
@@ -55,16 +56,22 @@ export class SignIn {
     );
   }
 
+  isSubmitting = false;
+
   async getDataForm() {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;
     }
 
+    this.isSubmitting = true;
+    this.notificationType = null;
+    this.notificationMessage = '';
+
     const formValue = this.userForm.value;
     const userData: RegisterForm = {
-      username: formValue.username as string,
-      email: formValue.email as string,
+      username: (formValue.username as string).trim(),
+      email: (formValue.email as string).trim(),
       password: formValue.password as string,
       fechaNacimiento: new Date(formValue.fechaNacimiento as string),
     };
@@ -75,9 +82,22 @@ export class SignIn {
       this.notificationMessage = 'Cuenta creada correctamente.';
       this.userForm.reset();
       setTimeout(() => this.router.navigate(['/daznfantasy/login']), 1200);
-    } catch {
+    } catch (error: unknown) {
       this.notificationType = 'error';
-      this.notificationMessage = 'No se pudo crear la cuenta. Intentalo de nuevo.';
+      if (error instanceof Object && 'error' in error) {
+        const httpErr = error as { error?: { error?: string }, status?: number };
+        if (httpErr.status === 0) {
+          this.notificationMessage = 'No se puede conectar con el servidor.';
+        } else if (httpErr.error?.error) {
+          this.notificationMessage = httpErr.error.error;
+        } else {
+          this.notificationMessage = 'No se pudo crear la cuenta. Inténtalo de nuevo.';
+        }
+      } else {
+        this.notificationMessage = 'Error inesperado al crear la cuenta.';
+      }
+    } finally {
+      this.isSubmitting = false;
     }
   }
 }

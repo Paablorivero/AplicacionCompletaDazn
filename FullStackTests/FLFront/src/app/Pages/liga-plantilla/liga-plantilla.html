@@ -3,17 +3,17 @@
   @if (feedback) {
     <div class="lineup-toast">
       <p>{{ feedback }}</p>
-      <button type="button" (click)="closeFeedback()" aria-label="Cerrar mensaje">x</button>
+      <button type="button" (click)="closeFeedback()" [attr.aria-label]="'lineup.closeMessage' | t">x</button>
     </div>
   }
 
   <!-- Cabecera informativa de la pantalla de alineación. -->
   <header class="lineup-header">
     <h1 class="lineup-title">
-      Mi <span class="gradient-text">Alineacion</span>
+      {{ 'lineup.title' | t }} <span class="gradient-text">{{ 'lineup.title2' | t }}</span>
     </h1>
     <p class="lineup-help">
-      Arrastra titulares y suplentes para cambiarlos. Solo se permiten cambios entre jugadores de la misma posicion.
+      {{ 'lineup.help' | t }}
     </p>
   </header>
 
@@ -94,8 +94,8 @@
     <!-- Banquillo y acciones de guardado de la alineación. -->
     <section class="bench-section">
       <div class="bench-header-row">
-        <h2 class="bench-title">Suplentes</h2>
-        <p class="bench-note">Tambien puedes seleccionar un titular y pulsar sobre un suplente para cambiarlo.</p>
+        <h2 class="bench-title">{{ 'lineup.substitutes' | t }}</h2>
+        <p class="bench-note">{{ 'lineup.substitutes.help' | t }}</p>
       </div>
 
       <div class="bench-grid">
@@ -115,7 +115,7 @@
               [disabled]="isSelling"
               (click)="solicitarVenta(jugador, $event)"
             >
-              Vender
+              {{ 'lineup.sell' | t }}
             </button>
           </div>
         }
@@ -123,11 +123,7 @@
 
       <div class="bench-actions">
         <button class="save-btn" type="button" [disabled]="isSaving" (click)="guardar()">
-          @if (isSaving) {
-            Guardando...
-          } @else {
-            Guardar alineacion
-          }
+          {{ isSaving ? ('lineup.saving' | t) : ('lineup.save' | t) }}
         </button>
 
         @if (saveMessage) {
@@ -140,18 +136,18 @@
       </div>
     </section>
   } @else if (isLoading) {
-    <p class="loading-state">Cargando alineacion...</p>
+    <p class="loading-state">{{ 'lineup.loading' | t }}</p>
   } @else {
-    <p class="loading-state">No hay plantilla disponible para el equipo seleccionado.</p>
+    <p class="loading-state">{{ 'lineup.noSquad' | t }}</p>
   }
 
   @if (jugadorParaVenta; as jugadorVenta) {
     <div class="modal-overlay" (click)="cancelarVenta()">
       <div class="modal-card" (click)="$event.stopPropagation()">
-        <h3>Confirmar venta</h3>
+        <h3>{{ 'lineup.confirmSale' | t }}</h3>
         <p>
-          Vas a vender a <strong>{{ jugadorVenta.nombre }}</strong>.
-          Recibiras <strong>{{ ingresoEstimadoVenta(jugadorVenta) }} EUR</strong> (50% del valor).
+          {{ 'lineup.saleText' | t }} <strong>{{ jugadorVenta.nombre }}</strong>.
+          {{ 'lineup.saleIncome' | t }} <strong>{{ ingresoEstimadoVenta(jugadorVenta) }} EUR</strong> {{ 'lineup.salePercent' | t }}
         </p>
 
         @if (ventaError) {
@@ -159,9 +155,9 @@
         }
 
         <div class="modal-actions">
-          <button type="button" class="modal-cancel-btn" (click)="cancelarVenta()">Cancelar</button>
+          <button type="button" class="modal-cancel-btn" (click)="cancelarVenta()">{{ 'lineup.cancelSale' | t }}</button>
           <button type="button" class="modal-confirm-btn" [disabled]="isSelling" (click)="confirmarVenta()">
-            {{ isSelling ? 'Vendiendo...' : 'Confirmar venta' }}
+            {{ isSelling ? ('lineup.selling' | t) : ('lineup.confirmSaleBtn' | t) }}
           </button>
         </div>
       </div>

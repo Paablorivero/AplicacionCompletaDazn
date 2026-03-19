@@ -8,6 +8,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {UsuariosService} from '../../Services/usuarios.service';
 import {Equiposusuariodto} from '../../interfaces/dtos/equiposusuariodto.interface';
 import {Equipo} from '../../interfaces/equipo.interface';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // Estructura de fila para mostrar ligas ya unidas con su equipo asociado.
 interface LigaUnidaRow {
@@ -19,7 +20,7 @@ interface LigaUnidaRow {
 
 @Component({
   selector: 'app-seleccion-ligas',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, TranslatePipe],
   templateUrl: './seleccion-ligas.html',
   styleUrl: './seleccion-ligas.css',
 })

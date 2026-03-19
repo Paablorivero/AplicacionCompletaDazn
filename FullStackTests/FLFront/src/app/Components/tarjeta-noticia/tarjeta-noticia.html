@@ -12,7 +12,7 @@
 
   <div class="noticia-body">
     <h3 class="noticia-title">{{ noticia().title }}</h3>
-    <p class="noticia-description">{{ noticia().description || 'Sin descripción disponible.' }}</p>
+    <p class="noticia-description">{{ noticia().description || ('news.noDescription' | t) }}</p>
 
     <div class="noticia-footer">
       <div class="noticia-meta">
@@ -23,7 +23,7 @@
         <span>{{ noticia().publishedAt | date:'dd MMM yyyy, HH:mm' }}</span>
       </div>
       <div class="noticia-read-more">
-        <span>Leer más</span>
+        <span>{{ 'news.readMore' | t }}</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>

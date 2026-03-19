@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface ApiSportsResponse<T> {
   response: T[];
@@ -44,7 +45,7 @@ interface Partido {
 // Renderiza datos de API-Football sin usar widgets.
 @Component({
   selector: 'app-liga-widgets',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './liga-widgets.html',
   styleUrl: './liga-widgets.css',
 })

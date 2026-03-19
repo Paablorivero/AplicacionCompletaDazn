@@ -1,20 +1,22 @@
 .noticia-card {
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(23, 23, 23, 0.6);
-  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(16px) saturate(1.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .noticia-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 237, 0, 0.25);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px);
+  border-color: rgba(255, 237, 0, 0.2);
+  background: rgba(14, 14, 18, 0.65);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 237, 0, 0.05);
 }
 
 .noticia-img-container {
@@ -38,7 +40,7 @@
 .noticia-img-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #171717 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(14, 14, 18, 0.95) 0%, transparent 60%);
 }
 
 .noticia-source-badge {

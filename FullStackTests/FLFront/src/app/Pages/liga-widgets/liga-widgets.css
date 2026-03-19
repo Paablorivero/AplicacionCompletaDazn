@@ -1,7 +1,18 @@
 .widgets-page {
-  background: #0a0a0a;
-  min-height: calc(100vh - 64px);
+  position: relative;
+  min-height: calc(100dvh - 4rem);
   padding: 1.5rem 0;
+}
+
+.widgets-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 40% at 25% 65%, rgba(255, 237, 0, 0.025) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 75% 25%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
 }
 
 .widgets-container {
@@ -13,10 +24,12 @@
 }
 
 .widgets-header {
-  padding: 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .widgets-header h1 {
@@ -40,10 +53,12 @@
 }
 
 .widget-card {
-  padding: 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(14, 14, 18, 0.5);
+  backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .widget-card h2 {
@@ -134,10 +149,17 @@
 }
 
 .fixture-item {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.65rem;
-  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+  padding: 0.85rem;
   background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.fixture-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 237, 0, 0.1);
 }
 
 .fixture-date {

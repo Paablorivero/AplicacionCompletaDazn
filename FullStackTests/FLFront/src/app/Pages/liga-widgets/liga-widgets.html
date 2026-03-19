@@ -2,10 +2,10 @@
   <div class="widgets-container">
     <div class="widgets-header">
       <button type="button" routerLink="/daznfantasy/home" class="back-button">
-        Volver al inicio
+        {{ 'widgets.backToHome' | t }}
       </button>
-      <h1>Clasificacion de la liga</h1>
-      <p>Informacion oficial de LaLiga: clasificacion y proximos partidos.</p>
+      <h1>{{ 'widgets.title' | t }}</h1>
+      <p>{{ 'widgets.subtitle' | t }}</p>
     </div>
 
     @if (error()) {
@@ -17,19 +17,19 @@
     @if (!cargando() && !error()) {
       <div class="widgets-grid">
         <div class="widget-card">
-          <h2>Clasificacion - LaLiga</h2>
+          <h2>{{ 'widgets.standings' | t }}</h2>
           <div class="table-wrapper">
             <table class="standings-table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Equipo</th>
-                  <th>Pts</th>
-                  <th>PJ</th>
-                  <th>G</th>
-                  <th>E</th>
-                  <th>P</th>
-                  <th>DG</th>
+                  <th>{{ 'widgets.table.pos' | t }}</th>
+                  <th>{{ 'widgets.table.team' | t }}</th>
+                  <th>{{ 'widgets.table.pts' | t }}</th>
+                  <th>{{ 'widgets.table.played' | t }}</th>
+                  <th>{{ 'widgets.table.won' | t }}</th>
+                  <th>{{ 'widgets.table.drawn' | t }}</th>
+                  <th>{{ 'widgets.table.lost' | t }}</th>
+                  <th>{{ 'widgets.table.gd' | t }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="widget-card">
-          <h2>Proximos partidos - LaLiga</h2>
+          <h2>{{ 'widgets.fixtures' | t }}</h2>
           <div class="fixtures-scroll">
             <div class="fixtures-list">
               @for (partido of proximosPartidos(); track partido.fixture.date + partido.teams.home.name) {

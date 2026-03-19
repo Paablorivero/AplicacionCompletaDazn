@@ -3,10 +3,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { JugadoresService } from '../../Services/jugadores.service';
 import { JugadorListItem } from '../../interfaces/dtos/jugador-list-item.interface';
 import { EquipoligaService } from '../../Services/equipoliga.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-liga-jugadores',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './liga-jugadores.html',
   styleUrl: './liga-jugadores.css',
 })

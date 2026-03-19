@@ -6,10 +6,11 @@ import { EquipoligaService } from '../../Services/equipoliga.service';
 import { EquipoDataService } from '../../Services/equipo-data.service';
 import { UsuariosService } from '../../Services/usuarios.service';
 import { Liga } from '../../interfaces/liga.interface';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-liga-mercado',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './liga-mercado.html',
   styleUrl: './liga-mercado.css',
 })
@@ -160,7 +161,6 @@ export class LigaMercado implements OnInit {
         ligaId: primerEquipo.ligaId,
       });
     } catch {
-      // Si no se puede resolver el contexto, la pantalla ya mostrará el mensaje de selección de liga.
     }
   }
 }

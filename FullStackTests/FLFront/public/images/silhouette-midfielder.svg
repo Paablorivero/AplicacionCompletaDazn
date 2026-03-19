@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="#10b981">
+    <!-- Centrocampista controlando el balón con el pecho/pie, postura de recepción -->
+    <!-- Cabeza -->
+    <circle cx="95" cy="28" r="15"/>
+    <!-- Torso ligeramente inclinado hacia atrás -->
+    <path d="M82 42 L76 108 L116 108 L110 42 Z"/>
+    <!-- Brazo izquierdo abierto para equilibrio -->
+    <path d="M82 50 L48 72 L52 82 L86 62 Z"/>
+    <!-- Brazo derecho abierto para equilibrio -->
+    <path d="M110 50 L146 68 L142 78 L108 62 Z"/>
+    <!-- Pierna izquierda de apoyo -->
+    <path d="M82 106 L74 168 L86 170 L92 110 Z"/>
+    <!-- Pie izquierdo -->
+    <path d="M70 166 L86 170 L88 178 L68 176 Z"/>
+    <!-- Pierna derecha levantada controlando balón -->
+    <path d="M106 106 L130 132 L122 140 L100 114 Z"/>
+    <!-- Pantorrilla derecha hacia el balón -->
+    <path d="M130 130 L148 150 L140 158 L122 138 Z"/>
+    <!-- Pie derecho (contacto con balón) -->
+    <path d="M144 148 L158 154 L154 164 L140 158 Z"/>
+    <!-- Balón -->
+    <circle cx="156" cy="158" r="10"/>
+  </g>
+</svg>

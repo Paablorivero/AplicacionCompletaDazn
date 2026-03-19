@@ -12,14 +12,13 @@
           routerLink="/daznfantasy/home"
           class="hero-back-btn"
         >
-          Volver al menu
+          {{ 'leagues.backToMenu' | t }}
         </button>
       </div>
       <div class="hero-text-stack">
-        <h1 class="hero-title">Seleccion de <span>Ligas</span></h1>
+        <h1 class="hero-title">{{ 'leagues.title' | t }} <span>{{ 'leagues.title2' | t }}</span></h1>
         <p class="hero-subtitle">
-          Gestiona tus competiciones desde un solo sitio: revisa tus ligas activas, unete a nuevas y entra
-          rapido a la plantilla de cada equipo.
+          {{ 'leagues.subtitle' | t }}
         </p>
       </div>
     </div>
@@ -29,32 +28,32 @@
     <div class="ligas-tools">
       <div class="toolbar-left">
         <div class="tool-group">
-          <label class="tool-label">Gestion de ligas</label>
-          <p class="tool-help">Crea nuevas ligas o entra a la plantilla de las que ya juegas.</p>
+          <label class="tool-label">{{ 'leagues.management' | t }}</label>
+          <p class="tool-help">{{ 'leagues.management.help' | t }}</p>
         </div>
         <button
           type="button"
           class="ligas-primary-btn"
           (click)="abrirModalCrearLiga()"
         >
-          Añadir liga
+          {{ 'leagues.addLeague' | t }}
         </button>
       </div>
 
       <div class="toolbar-stats">
-        <div class="stat-pill" title="Ligas en las que participas">
-          <span>Unidas</span>
+        <div class="stat-pill" [attr.title]="'leagues.myLeagues' | t">
+          <span>{{ 'leagues.joined' | t }}</span>
           <strong>{{ ligasUnidas.length }}</strong>
         </div>
-        <div class="stat-pill" title="Ligas disponibles para unirte">
-          <span>Disponibles</span>
+        <div class="stat-pill" [attr.title]="'leagues.availableLeagues' | t">
+          <span>{{ 'leagues.available' | t }}</span>
           <strong>{{ ligasDisponibles.length }}</strong>
         </div>
       </div>
     </div>
 
     @if (loading) {
-      <p class="seleccion-message">Cargando ligas...</p>
+      <p class="seleccion-message">{{ 'leagues.loading' | t }}</p>
     }
 
     @if (error) {
@@ -63,20 +62,20 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/>
         </svg>
         <span>{{ error }}</span>
-        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="cerrarError()">Aceptar</button>
+        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="cerrarError()">{{ 'leagues.accept' | t }}</button>
       </div>
     }
 
     <section class="ligas-grid">
       <article class="ligas-panel">
         <div class="panel-header">
-          <h2>Ligas en las que participas</h2>
+          <h2>{{ 'leagues.myLeagues' | t }}</h2>
           <span class="panel-count">{{ ligasUnidas.length }}</span>
         </div>
 
         <div class="panel-scroll">
           @if (!loading && ligasUnidas.length === 0) {
-            <p class="seleccion-message">Todavia no estas unido a ninguna liga.</p>
+            <p class="seleccion-message">{{ 'leagues.noLeagues' | t }}</p>
           }
 
           @if (ligasUnidas.length > 0) {
@@ -84,9 +83,9 @@
               <table class="table ligas-table min-w-[560px]">
                 <thead>
                   <tr>
-                    <th>Liga</th>
-                    <th>Tu equipo</th>
-                    <th>Accion</th>
+                    <th>{{ 'leagues.table.league' | t }}</th>
+                    <th>{{ 'leagues.table.team' | t }}</th>
+                    <th>{{ 'leagues.table.action' | t }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,7 +95,7 @@
                       <td>{{ liga.nombreEquipo }}</td>
                       <td>
                         <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="mostrarPlantilla(liga)">
-                          Mostrar plantilla
+                          {{ 'leagues.showSquad' | t }}
                         </button>
                       </td>
                     </tr>
@@ -110,13 +109,13 @@
 
       <article class="ligas-panel">
         <div class="panel-header">
-          <h2>Ligas disponibles</h2>
+          <h2>{{ 'leagues.availableLeagues' | t }}</h2>
           <span class="panel-count">{{ ligasDisponibles.length }}</span>
         </div>
 
         <div class="panel-scroll">
           @if (!loading && ligasDisponibles.length === 0) {
-            <p class="seleccion-message">Ahora mismo no hay ligas disponibles para unirse.</p>
+            <p class="seleccion-message">{{ 'leagues.noAvailable' | t }}</p>
           }
 
           @if (ligasDisponibles.length > 0) {
@@ -124,8 +123,8 @@
               <table class="table ligas-table min-w-[430px]">
                 <thead>
                   <tr>
-                    <th>Liga</th>
-                    <th>Accion</th>
+                    <th>{{ 'leagues.table.league' | t }}</th>
+                    <th>{{ 'leagues.table.action' | t }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,7 +133,7 @@
                       <td>{{ liga.nombreLiga }}</td>
                       <td>
                         <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="abrirModal(liga)">
-                          Unirse
+                          {{ 'leagues.join' | t }}
                         </button>
                       </td>
                     </tr>
@@ -150,18 +149,18 @@
     @if (mostrarModal) {
       <div class="modal-overlay">
         <div class="modal-content">
-          <h3 class="modal-title">Unirse a la liga</h3>
+          <h3 class="modal-title">{{ 'leagues.joinModal.title' | t }}</h3>
 
           <input
             type="text"
             [(ngModel)]="nombreEquipo"
-            placeholder="Nombre del equipo"
+            [placeholder]="'leagues.joinModal.teamName' | t"
             class="modal-input"
           />
 
           <div class="modal-actions">
-            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarUnirse()">Unirse</button>
-            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModal()">Cancelar</button>
+            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarUnirse()">{{ 'leagues.joinModal.confirm' | t }}</button>
+            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModal()">{{ 'leagues.joinModal.cancel' | t }}</button>
           </div>
         </div>
       </div>
@@ -170,25 +169,25 @@
     @if (mostrarModalCrearLiga) {
       <div class="modal-overlay">
         <div class="modal-content">
-          <h3 class="modal-title">Añadir nueva liga</h3>
+          <h3 class="modal-title">{{ 'leagues.createModal.title' | t }}</h3>
 
           <input
             type="text"
             [(ngModel)]="nombreNuevaLiga"
-            placeholder="Nombre de la liga"
+            [placeholder]="'leagues.createModal.leagueName' | t"
             class="modal-input"
           />
 
           <input
             type="text"
             [(ngModel)]="nombreEquipoNuevaLiga"
-            placeholder="Nombre del equipo"
+            [placeholder]="'leagues.createModal.teamName' | t"
             class="modal-input mt-3"
           />
 
           <div class="modal-actions">
-            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarCrearLiga()">Añadir</button>
-            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModalCrearLiga()">Cancelar</button>
+            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarCrearLiga()">{{ 'leagues.createModal.confirm' | t }}</button>
+            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModalCrearLiga()">{{ 'leagues.createModal.cancel' | t }}</button>
           </div>
         </div>
       </div>

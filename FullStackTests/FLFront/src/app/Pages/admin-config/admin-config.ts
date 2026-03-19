@@ -4,10 +4,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AdminConfigService, AdminJornadaItem, EstadoJornadaAdminResponse } from '../../Services/admin-config.service';
 import { UsuariosService } from '../../Services/usuarios.service';
 import { AdminUserListItem } from '../../interfaces/dtos/admin-user-list-item.interface';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-admin-config',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './admin-config.html',
   styleUrl: './admin-config.css',
 })

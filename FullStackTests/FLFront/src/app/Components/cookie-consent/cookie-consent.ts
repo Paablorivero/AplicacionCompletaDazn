@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // Gestiona la visibilidad y persistencia del consentimiento de cookies.
 @Component({
   selector: 'app-cookie-consent',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './cookie-consent.html',
   styleUrl: './cookie-consent.css',
 })

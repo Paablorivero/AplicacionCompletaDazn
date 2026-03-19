@@ -4,11 +4,12 @@ import { EquipoligaService } from '../../Services/equipoliga.service';
 import { EquipoDataService } from '../../Services/equipo-data.service';
 import { UsuariosService } from '../../Services/usuarios.service';
 import { Liga } from '../../interfaces/liga.interface';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // Contenedor de navegación lateral para secciones internas de una liga.
 @Component({
   selector: 'app-dashboard-ligas',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './dashboard-ligas.html',
   styleUrl: './dashboard-ligas.css',
 })

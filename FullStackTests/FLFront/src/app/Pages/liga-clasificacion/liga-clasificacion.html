@@ -3,7 +3,7 @@
   <div class="absolute inset-0 bg-cover bg-center brightness-50 contrast-125 saturate-50"
        style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2000&auto=format&fit=crop')">
   </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#060608] via-black/50 to-transparent"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
 
   <div class="relative z-10 container mx-auto px-6 py-16 max-w-6xl">
@@ -13,31 +13,31 @@
         routerLink="/daznfantasy/home"
         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/40 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white/70 transition-all mb-2"
       >
-        Volver al menú
+        {{ 'classification.backToMenu' | t }}
       </button>
       <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none">
         @if (nombreLiga()) {
           <span class="gradient-text">{{ nombreLiga() }}</span>
         } @else {
-          Tabla de <span class="gradient-text">Clasificación</span>
+          {{ 'classification.title' | t }} <span class="gradient-text">{{ 'classification.title2' | t }}</span>
         }
       </h1>
       <p class="text-white/60 text-base leading-relaxed max-w-xl">
-        Consulta la clasificación actualizada de tu liga fantasy. Comprueba tu posición y la de tus rivales.
+        {{ 'classification.subtitle' | t }}
       </p>
     </div>
   </div>
 </section>
 
 <!-- Contenido principal -->
-<section class="py-10 bg-[#0a0a0a]">
+<section class="py-10">
   <div class="container mx-auto px-6 max-w-4xl">
 
     <!-- Estado de carga -->
     @if (cargando()) {
       <div class="flex flex-col items-center justify-center py-20 gap-4">
         <span class="loading loading-spinner loading-lg text-yellow-400"></span>
-        <p class="text-white/40 text-sm">Cargando clasificación...</p>
+        <p class="text-white/40 text-sm">{{ 'classification.loading' | t }}</p>
       </div>
     }
 
@@ -58,9 +58,9 @@
 
         <!-- Cabecera de la tabla -->
         <div class="grid grid-cols-12 gap-2 px-4 py-2 mb-2 text-xs font-bold tracking-wider uppercase text-white/30">
-          <div class="col-span-1 text-center">#</div>
-          <div class="col-span-8">Equipo</div>
-          <div class="col-span-3 text-center">Puntos</div>
+          <div class="col-span-1 text-center">{{ 'classification.table.position' | t }}</div>
+          <div class="col-span-8">{{ 'classification.table.team' | t }}</div>
+          <div class="col-span-3 text-center">{{ 'classification.table.points' | t }}</div>
         </div>
 
         <!-- Filas de la tabla -->
@@ -69,12 +69,12 @@
             <div
               class="grid grid-cols-12 gap-2 items-center px-4 py-4 rounded-xl border transition-all duration-300 hover:scale-[1.01]"
               [class]="i === 0
-                ? 'bg-yellow-400/10 border-yellow-400/40 hover:bg-yellow-400/15'
+                ? 'bg-yellow-400/10 border-yellow-400/30 hover:bg-yellow-400/15 backdrop-blur-sm shadow-lg shadow-yellow-400/5'
                 : i === 1
-                  ? 'bg-white/5 border-white/15 hover:bg-white/8'
+                  ? 'bg-white/5 border-white/12 hover:bg-white/8 backdrop-blur-sm'
                   : i === 2
-                    ? 'bg-white/5 border-white/10 hover:bg-white/8'
-                    : 'bg-white/3 border-white/5 hover:bg-white/6'"
+                    ? 'bg-white/4 border-white/8 hover:bg-white/7 backdrop-blur-sm'
+                    : 'bg-white/3 border-white/5 hover:bg-white/6 backdrop-blur-sm'"
             >
               <!-- Posición -->
               <div class="col-span-1 flex justify-center">
@@ -97,7 +97,7 @@
                     [class]="i === 0 ? 'text-yellow-400' : 'text-white'"
                   >{{ equipo.nombre_equipo }}</span>
                   @if (i === 0) {
-                    <span class="text-yellow-400/60 text-xs font-mono tracking-wide">Líder</span>
+                    <span class="text-yellow-400/60 text-xs font-mono tracking-wide">{{ 'classification.leader' | t }}</span>
                   }
                 </div>
               </div>
@@ -108,7 +108,7 @@
                   class="font-black text-lg tabular-nums"
                   [class]="i === 0 ? 'text-yellow-400' : 'text-white/80'"
                 >{{ equipo.puntos }}</span>
-                <span class="text-white/30 text-xs self-end mb-1 ml-1">pts</span>
+                <span class="text-white/30 text-xs self-end mb-1 ml-1">{{ 'classification.pts' | t }}</span>
               </div>
             </div>
           }
@@ -117,7 +117,7 @@
         <!-- Footer info -->
         <div class="mt-6 text-center">
           <span class="text-white/20 text-xs font-mono">
-            {{ clasificacion().length }} equipos en la liga
+            {{ clasificacion().length }} {{ 'classification.teamsInLeague' | t }}
           </span>
         </div>
       </div>
@@ -130,7 +130,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
         </svg>
-        <p class="text-white/40 text-sm">No hay datos de clasificación disponibles.</p>
+        <p class="text-white/40 text-sm">{{ 'classification.noData' | t }}</p>
       </div>
     }
 

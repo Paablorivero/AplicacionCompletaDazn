@@ -7,12 +7,12 @@
     [routerLink]="['/daznfantasy/liga/clasificacion']"
     [queryParams]="{ ligaId: liga.ligaId, nombreLiga: liga.nombreLiga }"
     class="btn btn-warning btn-xs sm:btn-sm text-black"
-  >Ver clasificación</a>
+  >{{ 'tarjeta.viewClassification' | t }}</a>
 
   <button
     class="btn btn-warning btn-xs sm:btn-sm text-black"
     (click)="unirseLiga()"
   >
-    Unirse
+    {{ 'tarjeta.join' | t }}
   </button>
 </div>

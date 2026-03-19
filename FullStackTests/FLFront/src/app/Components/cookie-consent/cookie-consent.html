@@ -1,4 +1,3 @@
-<!-- Modal de consentimiento de cookies mostrado solo en primera visita. -->
 @if (visible()) {
   <div class="cookie-overlay" [class.cookie-closing]="closing()">
     <div class="cookie-modal" [class.cookie-closing]="closing()">
@@ -10,16 +9,15 @@
         </svg>
       </div>
 
-      <h3 class="cookie-title">Uso de cookies</h3>
+      <h3 class="cookie-title">{{ 'cookie.title' | t }}</h3>
 
       <p class="cookie-text">
-        Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
-        y personalizar contenido. Al aceptar, consientes el uso de todas las cookies.
+        {{ 'cookie.text' | t }}
       </p>
 
       <div class="cookie-actions">
-        <button class="cookie-btn cookie-btn-accept" (click)="accept()">Aceptar todo</button>
-        <button class="cookie-btn cookie-btn-reject" (click)="reject()">Solo necesarias</button>
+        <button class="cookie-btn cookie-btn-accept" (click)="accept()">{{ 'cookie.accept' | t }}</button>
+        <button class="cookie-btn cookie-btn-reject" (click)="reject()">{{ 'cookie.reject' | t }}</button>
       </div>
     </div>
   </div>

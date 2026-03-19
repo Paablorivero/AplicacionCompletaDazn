@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuariosService } from '../../Services/usuarios.service';
 import { Userprofile } from '../../interfaces/dtos/userprofile.interface';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 // TODO: Importar el servicio de usuario cuando esté listo
 // import { UserService } from '../../services/user.service';
@@ -12,7 +13,7 @@ import { Userprofile } from '../../interfaces/dtos/userprofile.interface';
 
 @Component({
   selector: 'app-user-settings',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe],
   templateUrl: './user-settings.html',
   styleUrl: './user-settings.css',
 })

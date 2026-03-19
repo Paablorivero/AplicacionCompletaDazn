@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="#ef4444">
+    <!-- Delantero chutando con fuerza -->
+    <!-- Cabeza -->
+    <circle cx="88" cy="26" r="15"/>
+    <!-- Torso inclinado hacia adelante -->
+    <path d="M78 40 L68 106 L108 106 L100 40 Z"/>
+    <!-- Brazo izquierdo hacia atrás (balanceo) -->
+    <path d="M78 48 L48 34 L44 42 L76 58 Z"/>
+    <!-- Brazo derecho hacia adelante -->
+    <path d="M100 50 L132 42 L130 52 L100 60 Z"/>
+    <!-- Pierna izquierda de apoyo (firme en el suelo) -->
+    <path d="M74 104 L68 168 L82 170 L86 108 Z"/>
+    <!-- Pie izquierdo de apoyo -->
+    <path d="M64 166 L82 170 L84 178 L62 176 Z"/>
+    <!-- Muslo derecho levantado hacia atrás (cargando chut) -->
+    <path d="M100 104 L136 86 L140 96 L106 112 Z"/>
+    <!-- Pantorrilla derecha lanzada hacia adelante (chut) -->
+    <path d="M136 84 L166 116 L158 124 L130 94 Z"/>
+    <!-- Pie derecho (contacto con balón) -->
+    <path d="M162 114 L178 124 L172 134 L156 124 Z"/>
+    <!-- Balón saliendo disparado -->
+    <circle cx="180" cy="128" r="9"/>
+  </g>
+</svg>

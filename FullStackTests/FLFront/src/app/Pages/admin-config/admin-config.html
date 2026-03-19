@@ -1,22 +1,22 @@
 <main class="mx-auto grid w-full max-w-7xl gap-4 px-4 py-6">
-  <section class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+  <section class="card border border-white/10 bg-base-200/20 backdrop-blur-xl">
     <div class="card-body gap-3">
       <button type="button" routerLink="/daznfantasy/home" class="btn btn-outline btn-warning btn-sm w-fit">
-        Volver al menu
+        {{ 'admin.backToMenu' | t }}
       </button>
       <div>
-        <h1 class="text-2xl font-bold text-white">Configuracion de administrador</h1>
-        <p class="text-sm text-white/65">Controla la jornada y revisa usuarios registrados.</p>
+        <h1 class="text-2xl font-bold text-white">{{ 'admin.title' | t }}</h1>
+        <p class="text-sm text-white/65">{{ 'admin.subtitle' | t }}</p>
       </div>
     </div>
   </section>
 
   <section class="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.9fr)]">
-    <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+    <article class="card border border-white/10 bg-base-200/20 backdrop-blur-xl">
       <div class="card-body gap-4">
         <div class="flex items-center justify-between gap-3">
-          <h2 class="card-title text-white">Usuarios registrados</h2>
-          <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarUsuarios()">Recargar</button>
+          <h2 class="card-title text-white">{{ 'admin.users' | t }}</h2>
+          <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarUsuarios()">{{ 'admin.reload' | t }}</button>
         </div>
 
         @if (cargandoUsuarios()) {
@@ -26,9 +26,9 @@
             <table class="table table-zebra">
               <thead>
                 <tr>
-                  <th>Usuario</th>
-                  <th>Email</th>
-                  <th>Rol</th>
+                  <th>{{ 'admin.table.user' | t }}</th>
+                  <th>{{ 'admin.table.email' | t }}</th>
+                  <th>{{ 'admin.table.role' | t }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -51,11 +51,11 @@
     </article>
 
     <div class="grid gap-4">
-      <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+      <article class="card border border-white/10 bg-base-200/20 backdrop-blur-xl">
         <div class="card-body gap-4">
           <div class="flex items-center justify-between gap-3">
-            <h2 class="card-title text-white">Historico de jornadas</h2>
-            <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarJornadas()">Recargar</button>
+            <h2 class="card-title text-white">{{ 'admin.matchdays' | t }}</h2>
+            <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarJornadas()">{{ 'admin.reload' | t }}</button>
           </div>
 
           @if (cargandoJornadas()) {
@@ -65,9 +65,9 @@
               <table class="table table-zebra">
                 <thead>
                   <tr>
-                    <th>Jornada</th>
-                    <th>Inicio</th>
-                    <th>Fin</th>
+                    <th>{{ 'admin.table.matchday' | t }}</th>
+                    <th>{{ 'admin.table.start' | t }}</th>
+                    <th>{{ 'admin.table.end' | t }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,17 +85,17 @@
         </div>
       </article>
 
-      <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+      <article class="card border border-white/10 bg-base-200/20 backdrop-blur-xl">
         <div class="card-body gap-4">
-          <h2 class="card-title text-white">Controles generales</h2>
+          <h2 class="card-title text-white">{{ 'admin.controls' | t }}</h2>
           @if (cargandoEstadoJornada()) {
             <span class="loading loading-spinner loading-md text-warning"></span>
           } @else if (estadoJornada(); as estado) {
             <div class="flex items-center gap-2">
               <span class="badge badge-sm" [class.badge-success]="estado.jornadaIniciada" [class.badge-error]="!estado.jornadaIniciada">
-                {{ estado.jornadaIniciada ? 'Iniciada' : 'Finalizada' }}
+                {{ estado.jornadaIniciada ? ('admin.started' | t) : ('admin.finished' | t) }}
               </span>
-              <span class="text-sm text-white/80">Jornada {{ estado.jornadaActual }} / {{ estado.maxJornada }}</span>
+              <span class="text-sm text-white/80">{{ 'admin.matchday' | t }} {{ estado.jornadaActual }} / {{ estado.maxJornada }}</span>
             </div>
             <div class="flex flex-wrap gap-2">
               <button
@@ -104,7 +104,7 @@
                 [disabled]="operandoJornada() || estado.jornadaIniciada"
                 (click)="iniciarJornada()"
               >
-                {{ operandoJornada() ? 'Procesando...' : 'Iniciar jornada' }}
+                {{ operandoJornada() ? ('admin.processing' | t) : ('admin.startMatchday' | t) }}
               </button>
               <button
                 type="button"
@@ -112,7 +112,7 @@
                 [disabled]="operandoJornada() || !estado.jornadaIniciada"
                 (click)="finalizarJornada()"
               >
-                {{ operandoJornada() ? 'Procesando...' : 'Finalizar jornada' }}
+                {{ operandoJornada() ? ('admin.processing' | t) : ('admin.endMatchday' | t) }}
               </button>
               <button
                 type="button"
@@ -120,7 +120,7 @@
                 [disabled]="cargandoMercado()"
                 (click)="actualizarMercado()"
               >
-                {{ cargandoMercado() ? 'Actualizando...' : 'Actualizar mercado' }}
+                {{ cargandoMercado() ? ('admin.updating' | t) : ('admin.updateMarket' | t) }}
               </button>
             </div>
           }

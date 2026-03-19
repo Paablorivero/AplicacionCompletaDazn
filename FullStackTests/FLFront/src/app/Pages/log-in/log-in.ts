@@ -3,72 +3,64 @@ import {Router, RouterLink} from "@angular/router";
 import {FormsModule, NgForm} from '@angular/forms';
 import {Userlogin} from '../../interfaces/userlogin.interface';
 import {AuthServiceService} from '../../Services/auth-service.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
+import {TranslatePipe} from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-log-in',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, TranslatePipe],
   templateUrl: './log-in.html',
   styleUrl: './log-in.css',
 })
 export class LogIn {
 
-  passwordVisible: boolean = false;
-  loginError: string = '';
-  isSubmitting: boolean = false;
+  passwordVisible = false;
+  loginError = '';
+  isSubmitting = false;
 
-  // Defino la propiedad del formulario
-  protected loginData: Userlogin;
-
-  // Inyecto el authService
+  protected loginData: Userlogin = {
+    username: '',
+    password: '',
+  };
 
   private authService = inject(AuthServiceService);
-
-  // Inyecto el servicio Router
-  private router: Router = inject(Router);
-
-  constructor(){
-    // Inicializo la propiedad loginData
-    this.loginData = {
-      username: '',
-      password: '',
-    };
-  }
+  private router = inject(Router);
 
   togglePassword(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 
   protected async onSubmit(loginForm: NgForm) {
+    if (!this.loginData.username.trim() || !this.loginData.password.trim()) {
+      this.loginError = 'Introduce usuario y contraseña';
+      return;
+    }
+
     this.loginError = '';
     this.isSubmitting = true;
 
-    const payload: Userlogin = {
-      username: this.loginData.username,
-      password: this.loginData.password,
-    };
-
     try {
-      await this.authService.loginUser(payload);
-
-      this.router.navigate(['/daznfantasy/home']);
-
-      console.log('log in successfully');
-
-    } catch (error) {
-      loginForm.resetForm({
-        username: '',
-        password: '',
+      await this.authService.loginUser({
+        username: this.loginData.username.trim(),
+        password: this.loginData.password,
       });
+
+      await this.router.navigate(['/daznfantasy/home']);
+    } catch (error) {
       this.passwordVisible = false;
+      loginForm.resetForm({ username: this.loginData.username, password: '' });
 
-      if (error instanceof HttpErrorResponse && error.error?.error) {
-        this.loginError = error.error.error;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 0) {
+          this.loginError = 'No se puede conectar con el servidor';
+        } else if (error.error?.error) {
+          this.loginError = error.error.error;
+        } else {
+          this.loginError = 'Usuario o contraseña incorrectos';
+        }
       } else {
-        this.loginError = 'Usuario o contraseña incorrectos';
+        this.loginError = 'Error inesperado al iniciar sesión';
       }
-
-      console.log('login failed');
     } finally {
       this.isSubmitting = false;
     }
