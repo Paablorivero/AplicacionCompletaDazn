@@ -1,0 +1,61 @@
+.jugadores-mobile-list {
+  display: none;
+}
+
+.jugador-mobile-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.jugador-mobile-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.jugador-mobile-name {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.jugador-mobile-sub {
+  margin: 0.15rem 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.78rem;
+}
+
+.jugador-mobile-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.38rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.jugador-mobile-value {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: right;
+}
+
+.jugador-mobile-price {
+  color: rgb(250 204 21);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .jugadores-desktop-table {
+    display: none;
+  }
+
+  .jugadores-mobile-list {
+    display: block;
+  }
+}

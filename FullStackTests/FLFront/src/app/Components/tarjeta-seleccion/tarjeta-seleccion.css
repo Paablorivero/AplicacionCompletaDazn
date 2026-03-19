@@ -1,0 +1,31 @@
+.tarjeta-liga {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.tarjeta-liga:hover {
+  background: rgba(255, 237, 0, 0.05);
+  border-color: rgba(255, 237, 0, 0.2);
+}
+
+.tarjeta-liga-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tarjeta-liga-nombre {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.tarjeta-liga-id {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.72rem;
+}

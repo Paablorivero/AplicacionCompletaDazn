@@ -1,0 +1,26 @@
+<!-- Modal de consentimiento de cookies mostrado solo en primera visita. -->
+@if (visible()) {
+  <div class="cookie-overlay" [class.cookie-closing]="closing()">
+    <div class="cookie-modal" [class.cookie-closing]="closing()">
+      <div class="cookie-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949
+                4.88c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+        </svg>
+      </div>
+
+      <h3 class="cookie-title">Uso de cookies</h3>
+
+      <p class="cookie-text">
+        Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
+        y personalizar contenido. Al aceptar, consientes el uso de todas las cookies.
+      </p>
+
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-btn-accept" (click)="accept()">Aceptar todo</button>
+        <button class="cookie-btn cookie-btn-reject" (click)="reject()">Solo necesarias</button>
+      </div>
+    </div>
+  </div>
+}

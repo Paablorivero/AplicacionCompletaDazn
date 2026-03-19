@@ -1,0 +1,222 @@
+.widgets-page {
+  background: #0a0a0a;
+  min-height: calc(100vh - 64px);
+  padding: 1.5rem 0;
+}
+
+.widgets-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.widgets-header {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.widgets-header h1 {
+  margin: 0.25rem 0 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.widgets-header p {
+  margin: 0.5rem 0 0;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.widgets-note {
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 237, 0, 0.25);
+  background: rgba(255, 237, 0, 0.08);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.9rem;
+}
+
+.widget-card {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.widget-card h2 {
+  margin: 0 0 0.75rem;
+  color: #ffed00;
+  font-size: 1.05rem;
+}
+
+.back-button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.state-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.error-card {
+  border-color: rgba(255, 80, 80, 0.35);
+  background: rgba(255, 80, 80, 0.08);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 660px;
+  overflow-y: auto;
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+
+.standings-table th,
+.standings-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 0.5rem;
+  color: rgba(255, 255, 255, 0.86);
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.standings-table th {
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 700;
+}
+
+.standings-table .team-cell {
+  text-align: left;
+  min-width: 230px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.standings-table .team-cell img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.fixtures-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.fixtures-scroll {
+  max-height: 660px;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+.widgets-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0.35rem;
+  align-items: start;
+}
+
+.fixture-item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.fixture-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.82rem;
+  margin-bottom: 0.35rem;
+}
+
+.fixture-teams {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(255, 255, 255, 0.9);
+  min-width: 0;
+}
+
+.team-row {
+  justify-content: center;
+  text-align: center;
+}
+
+.team img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.team span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vs {
+  align-self: center;
+  color: #ffed00;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.fixture-status {
+  margin-top: 0.4rem;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1100px) {
+  .widgets-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .widgets-page {
+    padding: 0.9rem 0;
+  }
+
+  .widgets-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .table-wrapper,
+  .fixtures-scroll {
+    max-height: none;
+  }
+
+  .standings-table {
+    min-width: 560px;
+  }
+
+  .standings-table .team-cell {
+    min-width: 170px;
+  }
+}

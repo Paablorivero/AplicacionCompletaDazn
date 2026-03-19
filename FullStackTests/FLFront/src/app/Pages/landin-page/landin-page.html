@@ -1,0 +1,118 @@
+<!--Seccion del hero-->
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+    <!--Imagen de fondo con varios filtros aplicados para que no se vea 100% nitida-->
+    <div class="absolute inset-0 bg-cover bg-center brightness-50 contrast-125 saturate-50" style="background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=2000&auto=format&fit=crop');"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80"></div>
+
+    <div class="relative z-10 container mx-auto px-6 py-20">
+      <div class="max-w-5xl mx-auto text-center space-y-8">
+        <!--Logo FNTS-->
+        <div class="landing-logo-container">
+          <img src="/images/LOGO_FINAL_VERSION%20(1).svg" alt="FNTS Logo" class="landing-logo" />
+        </div>
+        <!--Badge de powered por DAZN-->
+        <div class="inline-flex items-center gap-2 px-5 py-2.5 dazn-badge-yellow rounded-full">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-400 dazn-pulse"></span>
+          </span>
+          <span class="font-mono text-xs font-bold tracking-wider uppercase text-yellow-400">Powered by DAZN</span>
+        </div>
+        <!--Titulo principal del hero-->
+        <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none md:leading-[1.08]">
+          <span class="block gradient-text pb-[0.12em]">Fantasy League</span>
+          <span class="block text-5xl md:text-7xl mt-2 text-white/70 pb-[0.12em]">LaLiga</span>
+        </h1>
+        <!--Subtitulo del hero-->
+        <p class="text-lg md:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+          Crea tu equipo perfecto, compite contra millones de managers y demuestra que eres el mejor estratega de LaLiga.
+        </p>
+        <!--Botones del hero-->
+        <div class="hero-actions flex flex-col md:flex-row items-center justify-center gap-4 pt-6">
+          <button class="btn btn-primary">
+            <span routerLink="/daznfantasy/register" class="relative z-10">Comenzar ahora</span>
+          </button>
+          <button routerLink="/daznfantasy/login" class="btn btn-secondary">Iniciar sesión</button>
+        </div>
+      </div>
+    </div>
+    <!--Flecha indicadora de scroll-->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 bounce-animation">
+      <svg aria-hidden="true" class="w-6 h-6 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Seccion de pasos para comenzar a jugar -->
+  <section class="py-24 bg-neutral-900 border-y border-white/10">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto text-center mb-20">
+        <h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+          Comienza en <span class="gradient-text">3 pasos</span>
+        </h2>
+        <p class="text-lg text-white/60 max-w-2xl mx-auto">
+          Es rápido, sencillo y adictivo. Únete a la mejor fantasy de LaLiga en minutos.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
+        <!--Card paso 1-->
+        <div class="step-card">
+          <div class="step-number">
+            <span class="relative z-10">1</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Crea tu cuenta</h3>
+          <p class="text-white/60 leading-relaxed">
+            Registro instantáneo con tu cuenta de DAZN. Sin complicaciones, sin esperas. Comienza a jugar de inmediato.
+          </p>
+        </div>
+        <!--Card paso 2-->
+        <div class="step-card delay-1">
+          <div class="step-number">
+            <span class="relative z-10">2</span>
+            <div class="number-glow delay-1"></div>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Construye tu plantilla</h3>
+          <p class="text-white/60 leading-relaxed">
+            Selecciona a tus jugadores favoritos con un presupuesto estratégico. Analiza estadísticas y forma reciente.
+          </p>
+        </div>
+        <!--Card paso 3-->
+        <div class="step-card delay-2">
+          <div class="step-number">
+            <span class="relative z-10">3</span>
+            <div class="number-glow delay-2"></div>
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Compite y gana</h3>
+          <p class="text-white/60 leading-relaxed">
+            Enfrenta a managers de todo el mundo. Cada jornada cuenta, cada decisión importa. Demuestra tu conocimiento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Seccion final cta-->
+  <section class="py-24">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="cta-container">
+          <div class="cta-pattern"></div>
+          <div class="relative z-10 space-y-8 text-center">
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter">
+              ¿Listo para dominar <span class="gradient-text">LaLiga?</span>
+            </h2>
+            <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
+              Únete a miles de managers y descubre si tienes lo necesario para llegar a lo más alto.
+            </p>
+            <div class="cta-actions">
+              <button class="btn btn-primary btn-lg">
+                <span routerLink="/daznfantasy/register" class="relative z-10">Crear mi equipo gratis</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

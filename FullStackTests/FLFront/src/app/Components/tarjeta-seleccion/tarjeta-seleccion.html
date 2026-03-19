@@ -1,0 +1,18 @@
+<!-- Tarjeta compacta para navegar o unirse a una liga concreta. -->
+<div class="tarjeta-liga card bg-base-100/30 border border-white/10">
+  <div class="tarjeta-liga-info">
+    <span class="tarjeta-liga-nombre">{{ liga.nombreLiga }}</span>
+  </div>
+  <a
+    [routerLink]="['/daznfantasy/liga/clasificacion']"
+    [queryParams]="{ ligaId: liga.ligaId, nombreLiga: liga.nombreLiga }"
+    class="btn btn-warning btn-xs sm:btn-sm text-black"
+  >Ver clasificación</a>
+
+  <button
+    class="btn btn-warning btn-xs sm:btn-sm text-black"
+    (click)="unirseLiga()"
+  >
+    Unirse
+  </button>
+</div>

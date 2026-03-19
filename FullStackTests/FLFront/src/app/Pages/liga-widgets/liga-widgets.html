@@ -1,0 +1,89 @@
+<section class="widgets-page">
+  <div class="widgets-container">
+    <div class="widgets-header">
+      <button type="button" routerLink="/daznfantasy/home" class="back-button">
+        Volver al inicio
+      </button>
+      <h1>Clasificacion de la liga</h1>
+      <p>Informacion oficial de LaLiga: clasificacion y proximos partidos.</p>
+    </div>
+
+    @if (error()) {
+      <div class="widget-card error-card">
+        <p class="state-text">{{ error() }}</p>
+      </div>
+    }
+
+    @if (!cargando() && !error()) {
+      <div class="widgets-grid">
+        <div class="widget-card">
+          <h2>Clasificacion - LaLiga</h2>
+          <div class="table-wrapper">
+            <table class="standings-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Equipo</th>
+                  <th>Pts</th>
+                  <th>PJ</th>
+                  <th>G</th>
+                  <th>E</th>
+                  <th>P</th>
+                  <th>DG</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (fila of clasificacion(); track fila.rank) {
+                  <tr>
+                    <td>{{ fila.rank }}</td>
+                    <td class="team-cell">
+                      <img [src]="fila.team.logo" [alt]="fila.team.name" />
+                      <span>{{ fila.team.name }}</span>
+                    </td>
+                    <td>{{ fila.points }}</td>
+                    <td>{{ fila.all.played }}</td>
+                    <td>{{ fila.all.win }}</td>
+                    <td>{{ fila.all.draw }}</td>
+                    <td>{{ fila.all.lose }}</td>
+                    <td>{{ fila.goalsDiff }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <h2>Proximos partidos - LaLiga</h2>
+          <div class="fixtures-scroll">
+            <div class="fixtures-list">
+              @for (partido of proximosPartidos(); track partido.fixture.date + partido.teams.home.name) {
+                <article class="fixture-item">
+                  <div class="fixture-date">{{ fechaPartido(partido.fixture.date) }}</div>
+                  <div class="fixture-teams">
+                    <div class="team team-row">
+                      <img [src]="partido.teams.home.logo" [alt]="partido.teams.home.name" />
+                      <span>{{ partido.teams.home.name }}</span>
+                    </div>
+                    <span class="vs">
+                      @if (partido.goals.home !== null && partido.goals.away !== null) {
+                        {{ partido.goals.home }} - {{ partido.goals.away }}
+                      } @else {
+                        VS
+                      }
+                    </span>
+                    <div class="team team-row">
+                      <img [src]="partido.teams.away.logo" [alt]="partido.teams.away.name" />
+                      <span>{{ partido.teams.away.name }}</span>
+                    </div>
+                  </div>
+                  <div class="fixture-status">{{ partido.fixture.status.long }}</div>
+                </article>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

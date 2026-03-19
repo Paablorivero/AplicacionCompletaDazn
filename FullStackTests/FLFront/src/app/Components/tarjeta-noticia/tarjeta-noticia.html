@@ -1,0 +1,33 @@
+<!-- Tarjeta clicable de noticia con imagen, metadatos y CTA. -->
+<div class="noticia-card" (click)="abrirNoticia()">
+  <div class="noticia-img-container">
+    <div class="noticia-img"
+         [style.background-image]="'url(' + (noticia().urlToImage || imagenFallback) + ')'">
+    </div>
+    <div class="noticia-img-overlay"></div>
+    <div class="noticia-source-badge">
+      <span>{{ nombreSource }}</span>
+    </div>
+  </div>
+
+  <div class="noticia-body">
+    <h3 class="noticia-title">{{ noticia().title }}</h3>
+    <p class="noticia-description">{{ noticia().description || 'Sin descripción disponible.' }}</p>
+
+    <div class="noticia-footer">
+      <div class="noticia-meta">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span>{{ noticia().publishedAt | date:'dd MMM yyyy, HH:mm' }}</span>
+      </div>
+      <div class="noticia-read-more">
+        <span>Leer más</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

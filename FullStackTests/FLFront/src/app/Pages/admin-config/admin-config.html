@@ -1,0 +1,142 @@
+<main class="mx-auto grid w-full max-w-7xl gap-4 px-4 py-6">
+  <section class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+    <div class="card-body gap-3">
+      <button type="button" routerLink="/daznfantasy/home" class="btn btn-outline btn-warning btn-sm w-fit">
+        Volver al menu
+      </button>
+      <div>
+        <h1 class="text-2xl font-bold text-white">Configuracion de administrador</h1>
+        <p class="text-sm text-white/65">Controla la jornada y revisa usuarios registrados.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.9fr)]">
+    <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+      <div class="card-body gap-4">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="card-title text-white">Usuarios registrados</h2>
+          <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarUsuarios()">Recargar</button>
+        </div>
+
+        @if (cargandoUsuarios()) {
+          <span class="loading loading-spinner loading-md text-warning"></span>
+        } @else {
+          <div class="admin-table-wrap admin-users-table max-h-[420px] overflow-auto rounded-box border border-white/10">
+            <table class="table table-zebra">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (usuario of usuarios(); track usuario.usuarioId) {
+                  <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>
+                      <span class="badge badge-sm" [class.badge-warning]="usuario.rol === 'admin'" [class.badge-ghost]="usuario.rol !== 'admin'">
+                        {{ usuario.rol }}
+                      </span>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </article>
+
+    <div class="grid gap-4">
+      <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+        <div class="card-body gap-4">
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="card-title text-white">Historico de jornadas</h2>
+            <button type="button" class="btn btn-outline btn-warning btn-sm" (click)="cargarJornadas()">Recargar</button>
+          </div>
+
+          @if (cargandoJornadas()) {
+            <span class="loading loading-spinner loading-md text-warning"></span>
+          } @else {
+            <div class="admin-table-wrap admin-jornadas-table max-h-[320px] overflow-auto rounded-box border border-white/10">
+              <table class="table table-zebra">
+                <thead>
+                  <tr>
+                    <th>Jornada</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (jornada of jornadas(); track jornada.jornadaId) {
+                    <tr>
+                      <td>{{ jornada.jornadaId }}</td>
+                      <td>{{ formatFecha(jornada.fInicio) }}</td>
+                      <td>{{ formatFecha(jornada.fFin) }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+        <div class="card-body gap-4">
+          <h2 class="card-title text-white">Controles generales</h2>
+          @if (cargandoEstadoJornada()) {
+            <span class="loading loading-spinner loading-md text-warning"></span>
+          } @else if (estadoJornada(); as estado) {
+            <div class="flex items-center gap-2">
+              <span class="badge badge-sm" [class.badge-success]="estado.jornadaIniciada" [class.badge-error]="!estado.jornadaIniciada">
+                {{ estado.jornadaIniciada ? 'Iniciada' : 'Finalizada' }}
+              </span>
+              <span class="text-sm text-white/80">Jornada {{ estado.jornadaActual }} / {{ estado.maxJornada }}</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                class="btn btn-warning btn-sm text-black"
+                [disabled]="operandoJornada() || estado.jornadaIniciada"
+                (click)="iniciarJornada()"
+              >
+                {{ operandoJornada() ? 'Procesando...' : 'Iniciar jornada' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline btn-warning btn-sm"
+                [disabled]="operandoJornada() || !estado.jornadaIniciada"
+                (click)="finalizarJornada()"
+              >
+                {{ operandoJornada() ? 'Procesando...' : 'Finalizar jornada' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline btn-warning btn-sm"
+                [disabled]="cargandoMercado()"
+                (click)="actualizarMercado()"
+              >
+                {{ cargandoMercado() ? 'Actualizando...' : 'Actualizar mercado' }}
+              </button>
+            </div>
+          }
+        </div>
+      </article>
+    </div>
+  </section>
+
+  @if (mensaje()) {
+    <div class="alert alert-success">
+      <span>{{ mensaje() }}</span>
+    </div>
+  }
+  @if (error()) {
+    <div class="alert alert-error">
+      <span>{{ error() }}</span>
+    </div>
+  }
+</main>

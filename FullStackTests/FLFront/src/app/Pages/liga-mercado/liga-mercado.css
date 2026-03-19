@@ -1,0 +1,11 @@
+@media (max-width: 900px) {
+  .mercado-grid {
+    max-height: none !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+  }
+
+  .mercado-card .card-body {
+    padding: 0.85rem;
+  }
+}

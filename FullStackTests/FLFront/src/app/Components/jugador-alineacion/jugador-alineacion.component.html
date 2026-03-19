@@ -1,0 +1,13 @@
+<!-- Tarjeta visual reutilizable para representar un jugador en campo o banquillo. -->
+<article class="player-card" [class.player-selected]="selected">
+  <div class="player-head">
+    <span class="player-role">{{ posicionLabel }}</span>
+  </div>
+
+  <div class="player-avatar-wrap">
+    <img [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" [alt]="jugador.nombre" class="player-avatar" />
+  </div>
+  <div class="player-content">
+    <p class="player-name">{{ jugador.nombre }}</p>
+  </div>
+</article>

@@ -1,0 +1,160 @@
+<section class="grid gap-4">
+  <div class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+    <div class="card-body gap-1">
+      <h1 class="text-2xl font-bold text-white">Jugadores</h1>
+      <p class="text-sm text-white/70">Listado informativo de todos los jugadores disponibles en la base de datos.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+    <label class="form-control gap-1">
+      <span class="label-text text-white/80">Buscar jugador</span>
+      <input
+        type="text"
+        class="input input-bordered"
+        placeholder="Nombre, first name o last name"
+        [value]="filtroNombre"
+        (input)="onFiltroNombre($any($event.target).value)"
+      />
+    </label>
+
+    <label class="form-control gap-1">
+      <span class="label-text text-white/80">Equipo profesional</span>
+      <select
+        class="select select-bordered"
+        [value]="filtroEquipoId"
+        (change)="onFiltroEquipo($any($event.target).value)"
+      >
+        <option value="">Todos</option>
+        @for (equipo of equiposDisponibles(); track equipo.id) {
+          <option [value]="equipo.id">{{ equipo.nombre }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="form-control gap-1">
+      <span class="label-text text-white/80">Posicion</span>
+      <select
+        class="select select-bordered"
+        [value]="filtroPosicion"
+        (change)="onFiltroPosicion($any($event.target).value)"
+      >
+        <option value="">Todas</option>
+        @for (posicion of posicionesDisponibles(); track posicion) {
+          <option [value]="posicion">{{ posicionLabel(posicion) }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (cargando()) {
+    <div class="alert">
+      <span>Cargando jugadores...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-error">
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  @if (!cargando() && !error()) {
+    <div class="text-sm text-white/80">
+      {{ jugadoresFiltrados().length }} jugadores encontrados
+    </div>
+
+    <div class="jugadores-desktop-table max-h-[72vh] overflow-auto rounded-box border border-white/10 bg-base-200/30">
+      <table class="table table-zebra">
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Equipo original</th>
+            <th>Posicion</th>
+            <th>Precio</th>
+            <th>Nacionalidad</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (jugador of jugadoresFiltrados(); track jugador.jugadorId) {
+            <tr>
+              <td>
+                <div class="flex items-center gap-2">
+                  <img
+                    class="h-10 w-10 rounded-full bg-white/10 object-cover"
+                    [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                    [alt]="jugador.nombre"
+                  />
+                  <div>
+                    <p class="font-semibold text-white">{{ jugador.nombre }}</p>
+                    <p class="text-xs text-white/60">
+                      {{ jugador.firstName || '--' }} {{ jugador.lastName || '' }}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="flex items-center gap-2">
+                  @if (jugador.equipoProfesionalLogo) {
+                    <img class="h-4 w-4 object-contain" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
+                  }
+                  <span>{{ jugador.equipoProfesionalNombre }}</span>
+                </div>
+              </td>
+              <td>{{ posicionLabel(jugador.posicion) }}</td>
+              <td class="font-bold text-warning">{{ precioEuros(jugador.valor) }}</td>
+              <td>{{ jugador.nacionalidad || '--' }}</td>
+              <td>
+                <span class="badge" [class.badge-success]="jugador.tieneEquipoEnLiga" [class.badge-ghost]="!jugador.tieneEquipoEnLiga">
+                  {{ estadoJugador(jugador) }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="jugadores-mobile-list">
+      @for (jugador of jugadoresFiltrados(); track jugador.jugadorId) {
+        <article class="jugador-mobile-card">
+          <div class="jugador-mobile-head">
+            <img
+              class="h-12 w-12 rounded-full bg-white/10 object-cover"
+              [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+              [alt]="jugador.nombre"
+            />
+            <div>
+              <p class="jugador-mobile-name">{{ jugador.nombre }}</p>
+              <p class="jugador-mobile-sub">{{ jugador.firstName || '--' }} {{ jugador.lastName || '' }}</p>
+            </div>
+          </div>
+
+          <div class="jugador-mobile-row">
+            <span>Equipo</span>
+            <span class="jugador-mobile-value">{{ jugador.equipoProfesionalNombre }}</span>
+          </div>
+          <div class="jugador-mobile-row">
+            <span>Posicion</span>
+            <span class="jugador-mobile-value">{{ posicionLabel(jugador.posicion) }}</span>
+          </div>
+          <div class="jugador-mobile-row">
+            <span>Precio</span>
+            <span class="jugador-mobile-price">{{ precioEuros(jugador.valor) }}</span>
+          </div>
+          <div class="jugador-mobile-row">
+            <span>Nacionalidad</span>
+            <span class="jugador-mobile-value">{{ jugador.nacionalidad || '--' }}</span>
+          </div>
+          <div class="jugador-mobile-row">
+            <span>Estado</span>
+            <span class="badge" [class.badge-success]="jugador.tieneEquipoEnLiga" [class.badge-ghost]="!jugador.tieneEquipoEnLiga">
+              {{ estadoJugador(jugador) }}
+            </span>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

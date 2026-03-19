@@ -1,0 +1,10 @@
+.admin-table-wrap table {
+  min-width: 560px;
+}
+
+@media (max-width: 900px) {
+  .admin-users-table,
+  .admin-jornadas-table {
+    max-height: none !important;
+  }
+}

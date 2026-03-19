@@ -1,0 +1,91 @@
+<section class="grid gap-4">
+  <div class="card border border-white/10 bg-base-200/50 backdrop-blur-sm">
+    <div class="card-body gap-1">
+      <h1 class="text-2xl font-bold text-white">Mercado</h1>
+      <p class="text-sm text-white/70">20 jugadores libres disponibles para fichar.</p>
+    </div>
+  </div>
+
+  @if (cargando()) {
+    <div class="alert">
+      <span>Cargando mercado...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-error">
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  @if (mensaje()) {
+    <div class="alert alert-success">
+      <span>{{ mensaje() }}</span>
+    </div>
+  }
+
+  @if (!cargando() && !error()) {
+    <div class="mercado-grid grid max-h-[72vh] grid-cols-1 gap-4 overflow-y-auto pr-1 xl:grid-cols-2">
+      @for (jugador of jugadoresMercado(); track jugador.jugadorId) {
+        <article class="mercado-card card border border-white/10 bg-base-200/40 backdrop-blur-sm">
+          <div class="card-body gap-4 p-4">
+            <div class="flex items-center gap-3">
+            <img
+              class="h-[74px] w-[74px] rounded-full bg-white/10 object-cover"
+              [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+              [alt]="jugador.nombre"
+            />
+              <div>
+                <h3 class="text-lg font-semibold text-white">{{ jugador.nombre }}</h3>
+                <div class="mt-1 flex items-center gap-2 text-sm text-white/80">
+                @if (jugador.equipoProfesionalLogo) {
+                    <img class="h-4 w-4 object-contain" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
+                }
+                <span>{{ jugador.equipoProfesionalNombre }}</span>
+                </div>
+                <span class="badge badge-outline mt-2">{{ etiquetaPosicion(jugador.posicion) }}</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-lg font-bold text-warning">{{ formatearPrecio(jugador.precio) }}</span>
+              <button
+                type="button"
+                class="btn btn-warning btn-sm text-black"
+                [disabled]="estaComprando(jugador.jugadorId)"
+                (click)="solicitarCompra(jugador)"
+              >
+                {{ estaComprando(jugador.jugadorId) ? 'Comprando...' : 'Comprar' }}
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  @if (jugadorParaConfirmar(); as jugadorConfirmacion) {
+    <div class="fixed inset-0 z-[600] grid place-items-center bg-black/60 p-4" (click)="cancelarCompra()">
+      <div class="card w-full max-w-md border border-white/10 bg-base-200" (click)="$event.stopPropagation()">
+        <div class="card-body gap-4">
+          <h3 class="card-title text-white">Confirmar compra</h3>
+          <p class="text-white/80">
+          Quieres fichar a <strong>{{ jugadorConfirmacion.nombre }}</strong>
+          por <strong>{{ formatearPrecio(jugadorConfirmacion.precio) }}</strong>?
+        </p>
+          <div class="card-actions justify-end gap-2">
+            <button type="button" class="btn btn-ghost btn-sm" (click)="cancelarCompra()">Cancelar</button>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm text-black"
+              [disabled]="estaComprando(jugadorConfirmacion.jugadorId)"
+              (click)="confirmarCompra()"
+            >
+              {{ estaComprando(jugadorConfirmacion.jugadorId) ? 'Comprando...' : 'Confirmar compra' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>

@@ -1,0 +1,102 @@
+<!--Seccion del hero-->
+<section class="relative flex items-center overflow-hidden min-h-[55vh]">
+  <!--Imagen de fondo con varios filtros aplicados para que no se vea 100% nitida-->
+  <div class="absolute inset-0 bg-cover bg-center brightness-50 contrast-125 saturate-50" style="background-image: url('https://plus.unsplash.com/premium_photo-1684713510655-e6e31536168d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+
+  <div class="relative z-10 container mx-auto px-6 py-20 max-w-6xl">
+    <div class="max-w-2xl space-y-6">
+      <!--Badge de temporada-->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 dazn-badge-yellow rounded-full fade-up fade-up-1">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-400 dazn-pulse"></span>
+        </span>
+        <span class="font-mono text-xs font-bold tracking-wider uppercase text-yellow-400">Temporada 2025/2026</span>
+      </div>
+      <!--Titulo principal del hero-->
+      <h1 class="text-5xl md:text-6xl font-black tracking-tighter leading-none fade-up fade-up-1">Bienvenido, <br>
+        <span class="gradient-text">Mister</span>
+        @if (username()) {
+          <span class="gradient-text"> {{ username() }}</span>
+        }
+      </h1>
+      <!--Subtitulo del hero-->
+      <p class="text-white/60 text-base md:text-lg leading-relaxed max-w-xl fade-up fade-up-2">Este es tu centro de control. Consulta las últimas noticias de LaLiga,
+        únete a ligas para competir con otros managers y gestiona tu perfil.
+        Cada jornada es una nueva oportunidad para subir en el ranking.</p>
+    </div>
+  </div>
+</section>
+<!-- Seccion de cards de navegación -->
+<section class="py-16 bg-[#0a0a0a]">
+  <div class="container mx-auto px-6 max-w-6xl">
+    <div class="mb-10 fade-up fade-up-2">
+      <h2 class="text-2xl font-bold tracking-tight">¿A dónde quieres ir?</h2>
+      <p class="text-white/40 text-sm mt-1">Elige una sección para continuar</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!--Card noticias-->
+      <div class="nav-card fade-up fade-up-2">
+        <div class="relative h-48 overflow-hidden">
+          <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?q=80&w=2000&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-black/55"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#171717] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-5 space-y-2">
+          <h3 class="text-lg font-bold">Noticias</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Lesiones, sanciones y fichajes al momento. Infórmate antes de cerrar tu once para la próxima jornada.</p>
+          <div class="pt-3">
+            <button class="card-link" routerLink="/daznfantasy/news">
+              <span>Ver noticias</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--Card ligas-->
+      <div class="nav-card fade-up fade-up-2">
+        <div class="relative h-48 overflow-hidden">
+          <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1637203725134-1bbdcc17bb91?q=80&w=947&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+          <div class="absolute inset-0 bg-black/55"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#171717] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-5 space-y-2">
+          <h3 class="text-lg font-bold">Ligas</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Únete a ligas públicas de LaLiga o crea una privada con amigos. Compite toda la temporada y escala el ranking.</p>
+          <div class="pt-3">
+            <button class="card-link" routerLink="/daznfantasy/leagues">
+              <span>Ver ligas</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--Card user settings-->
+      <div class="nav-card fade-up fade-up-2">
+        <div class="relative h-48 overflow-hidden">
+          <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1652190416150-d501a60291b3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+          <div class="absolute inset-0 bg-black/55"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#171717] via-transparent to-transparent"></div>
+        </div>
+        <div class="p-5 space-y-2">
+          <h3 class="text-lg font-bold">Mi perfil</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Personaliza tu manager, ajusta notificaciones y vincula tu cuenta DAZN para desbloquear todas las funciones.</p>
+          <div class="pt-3">
+            <button class="card-link" routerLink="/daznfantasy/user" > <!--Falta routerLink usando el id del user-->
+              <span>Ir a perfil</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,170 @@
+<main class="lineup-page">
+  <!-- Toast fijo para feedback rápido de validaciones y cambios. -->
+  @if (feedback) {
+    <div class="lineup-toast">
+      <p>{{ feedback }}</p>
+      <button type="button" (click)="closeFeedback()" aria-label="Cerrar mensaje">x</button>
+    </div>
+  }
+
+  <!-- Cabecera informativa de la pantalla de alineación. -->
+  <header class="lineup-header">
+    <h1 class="lineup-title">
+      Mi <span class="gradient-text">Alineacion</span>
+    </h1>
+    <p class="lineup-help">
+      Arrastra titulares y suplentes para cambiarlos. Solo se permiten cambios entre jugadores de la misma posicion.
+    </p>
+  </header>
+
+  @if (loadError) {
+    <p class="loading-state">{{ loadError }}</p>
+  } @else if (titulares.Goalkeeper.length > 0 || titulares.Defender.length > 0 || titulares.Midfielder.length > 0 || titulares.Attacker.length > 0) {
+    <!-- Campo visual con titulares organizados por posición. -->
+    <section class="pitch">
+      <div class="pitch-row attackers-row">
+        @for (jugador of titulares.Attacker; track jugador.jugadorId; let i = $index) {
+          <div
+            class="player-slot"
+            draggable="true"
+            (click)="selectTitular(jugador)"
+            (dragstart)="startDragTitular($event, 'Attacker', i)"
+            (dragend)="endDrag()"
+            (dragover)="allowDrop($event)"
+            (drop)="dropOnTitular($event, 'Attacker', i)">
+            <app-jugador-alineacion
+              [jugador]="jugador"
+              [selected]="selectedTitular?.jugadorId === jugador.jugadorId"></app-jugador-alineacion>
+          </div>
+        }
+      </div>
+
+      <div class="pitch-row midfielders-row">
+        @for (jugador of titulares.Midfielder; track jugador.jugadorId; let i = $index) {
+          <div
+            class="player-slot"
+            draggable="true"
+            (click)="selectTitular(jugador)"
+            (dragstart)="startDragTitular($event, 'Midfielder', i)"
+            (dragend)="endDrag()"
+            (dragover)="allowDrop($event)"
+            (drop)="dropOnTitular($event, 'Midfielder', i)">
+            <app-jugador-alineacion
+              [jugador]="jugador"
+              [selected]="selectedTitular?.jugadorId === jugador.jugadorId"></app-jugador-alineacion>
+          </div>
+        }
+      </div>
+
+      <div class="pitch-row defenders-row">
+        @for (jugador of titulares.Defender; track jugador.jugadorId; let i = $index) {
+          <div
+            class="player-slot"
+            draggable="true"
+            (click)="selectTitular(jugador)"
+            (dragstart)="startDragTitular($event, 'Defender', i)"
+            (dragend)="endDrag()"
+            (dragover)="allowDrop($event)"
+            (drop)="dropOnTitular($event, 'Defender', i)">
+            <app-jugador-alineacion
+              [jugador]="jugador"
+              [selected]="selectedTitular?.jugadorId === jugador.jugadorId"></app-jugador-alineacion>
+          </div>
+        }
+      </div>
+
+      <div class="pitch-row goalkeeper-row">
+        @for (jugador of titulares.Goalkeeper; track jugador.jugadorId; let i = $index) {
+          <div
+            class="player-slot"
+            draggable="true"
+            (click)="selectTitular(jugador)"
+            (dragstart)="startDragTitular($event, 'Goalkeeper', i)"
+            (dragend)="endDrag()"
+            (dragover)="allowDrop($event)"
+            (drop)="dropOnTitular($event, 'Goalkeeper', i)">
+            <app-jugador-alineacion
+              [jugador]="jugador"
+              [selected]="selectedTitular?.jugadorId === jugador.jugadorId"></app-jugador-alineacion>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Banquillo y acciones de guardado de la alineación. -->
+    <section class="bench-section">
+      <div class="bench-header-row">
+        <h2 class="bench-title">Suplentes</h2>
+        <p class="bench-note">Tambien puedes seleccionar un titular y pulsar sobre un suplente para cambiarlo.</p>
+      </div>
+
+      <div class="bench-grid">
+        @for (jugador of suplentes; track jugador.jugadorId; let i = $index) {
+          <div
+            class="bench-slot"
+            draggable="true"
+            (click)="cambiarJugador(jugador)"
+            (dragstart)="startDragSuplente($event, i)"
+            (dragend)="endDrag()"
+            (dragover)="allowDrop($event)"
+            (drop)="dropOnSuplente($event, i)">
+            <app-jugador-alineacion [jugador]="jugador"></app-jugador-alineacion>
+            <button
+              type="button"
+              class="sell-btn"
+              [disabled]="isSelling"
+              (click)="solicitarVenta(jugador, $event)"
+            >
+              Vender
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="bench-actions">
+        <button class="save-btn" type="button" [disabled]="isSaving" (click)="guardar()">
+          @if (isSaving) {
+            Guardando...
+          } @else {
+            Guardar alineacion
+          }
+        </button>
+
+        @if (saveMessage) {
+          <p class="save-message">{{ saveMessage }}</p>
+        }
+
+        @if (ventaMensaje) {
+          <p class="save-message">{{ ventaMensaje }}</p>
+        }
+      </div>
+    </section>
+  } @else if (isLoading) {
+    <p class="loading-state">Cargando alineacion...</p>
+  } @else {
+    <p class="loading-state">No hay plantilla disponible para el equipo seleccionado.</p>
+  }
+
+  @if (jugadorParaVenta; as jugadorVenta) {
+    <div class="modal-overlay" (click)="cancelarVenta()">
+      <div class="modal-card" (click)="$event.stopPropagation()">
+        <h3>Confirmar venta</h3>
+        <p>
+          Vas a vender a <strong>{{ jugadorVenta.nombre }}</strong>.
+          Recibiras <strong>{{ ingresoEstimadoVenta(jugadorVenta) }} EUR</strong> (50% del valor).
+        </p>
+
+        @if (ventaError) {
+          <p class="modal-error">{{ ventaError }}</p>
+        }
+
+        <div class="modal-actions">
+          <button type="button" class="modal-cancel-btn" (click)="cancelarVenta()">Cancelar</button>
+          <button type="button" class="modal-confirm-btn" [disabled]="isSelling" (click)="confirmarVenta()">
+            {{ isSelling ? 'Vendiendo...' : 'Confirmar venta' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</main>

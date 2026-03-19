@@ -1,0 +1,190 @@
+<!-- Hero de noticias -->
+<section class="relative flex items-center overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center brightness-50 contrast-125 saturate-50"
+       style="background-image: url('https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?q=80&w=2000&auto=format&fit=crop')">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+
+  <div class="relative z-10 container mx-auto px-6 py-16 max-w-6xl">
+    <div class="noticias-back-wrap fade-up fade-up-1">
+      <button
+        type="button"
+        routerLink="/daznfantasy/home"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/90 bg-black/65 border border-white/25 hover:bg-black/80 hover:text-white transition-all shadow-lg shadow-black/30"
+      >
+        Volver al menu
+      </button>
+    </div>
+
+    <div class="max-w-2xl space-y-4 fade-up fade-up-1">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 dazn-badge-yellow rounded-full">
+        <svg class="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+        </svg>
+        <span class="font-mono text-xs font-bold tracking-wider uppercase text-yellow-400">Última hora</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none">
+        Noticias del <span class="gradient-text">Fútbol</span>
+      </h1>
+      <p class="text-white/60 text-base leading-relaxed max-w-xl">
+        Mantente informado con las últimas noticias, fichajes, lesiones y sanciones.
+        Toda la información que necesitas antes de cerrar tu alineación.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Filtros -->
+<section class="bg-[#0a0a0a] border-b border-white/5">
+  <div class="container mx-auto px-6 py-5 max-w-6xl">
+    <div class="flex flex-wrap items-end gap-4">
+      <!-- Filtro por medio -->
+      <div class="noticias-filter-group">
+        <label class="noticias-filter-label">Medio de comunicación</label>
+        <select class="noticias-filter-select"
+                [ngModel]="filtroSource()"
+                (ngModelChange)="onFiltroSourceChange($event)">
+          <option value="">Todos los medios</option>
+          @for (source of sourcesDisponibles(); track source) {
+            <option [value]="source">{{ source }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Filtro fecha desde -->
+      <div class="noticias-filter-group">
+        <label class="noticias-filter-label">Fecha inicio</label>
+        <input type="date" class="noticias-filter-input"
+               [ngModel]="filtroFechaDesde()"
+               (ngModelChange)="onFiltroFechaDesdeChange($event)">
+      </div>
+
+      <!-- Filtro fecha hasta -->
+      <div class="noticias-filter-group">
+        <label class="noticias-filter-label">Fecha fin</label>
+        <input type="date" class="noticias-filter-input"
+               [ngModel]="filtroFechaHasta()"
+               (ngModelChange)="onFiltroFechaHastaChange($event)">
+      </div>
+
+      <!-- Limpiar filtros -->
+      @if (hayFiltrosActivos()) {
+        <button class="noticias-clear-btn" (click)="limpiarFiltros()">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+          <span>Limpiar filtros</span>
+        </button>
+      }
+
+      <!-- Contador de resultados -->
+      <div class="ml-auto text-sm text-white/30">
+        {{ noticiasFiltradas().length }} noticias encontradas
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contenido principal -->
+<section class="py-10 bg-[#0a0a0a]">
+  <div class="container mx-auto px-6 max-w-6xl">
+
+    <!-- Estado de carga -->
+    @if (cargando()) {
+      <div class="flex flex-col items-center justify-center py-20 gap-4">
+        <span class="loading loading-spinner loading-lg text-yellow-400"></span>
+        <p class="text-white/40 text-sm">Cargando noticias...</p>
+      </div>
+    }
+
+    <!-- Sin resultados -->
+    @if (!cargando() && noticiasFiltradas().length === 0 && todasLasNoticias().length > 0) {
+      <div class="noticias-empty fade-up fade-up-1">
+        <svg class="w-12 h-12 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <p class="text-white/40 text-sm mt-2">No se encontraron noticias con el medio seleccionado.</p>
+        <button class="noticias-clear-btn mt-3" (click)="limpiarFiltros()">Limpiar filtros</button>
+      </div>
+    }
+
+    <!-- Grid de noticias -->
+    @if (!cargando() && noticiasPaginadas().length > 0) {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-up fade-up-2">
+        @for (noticia of noticiasPaginadas(); track noticia.url) {
+          <app-tarjeta-noticia [noticia]="noticia" />
+        }
+      </div>
+
+      <!-- Paginación -->
+      @if (totalPaginas() > 1) {
+        <div class="flex justify-center items-center gap-2 mt-12 fade-up fade-up-2">
+          <!-- Botón primera página -->
+          <button class="noticias-page-btn"
+                  [disabled]="paginaActual() === 1"
+                  (click)="irAPagina(1)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Botón anterior -->
+          <button class="noticias-page-btn"
+                  [disabled]="paginaActual() === 1"
+                  (click)="irAPagina(paginaActual() - 1)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Puntos suspensivos iniciales -->
+          @if (paginasVisibles()[0] > 1) {
+            <span class="text-white/20 px-1">...</span>
+          }
+
+          <!-- Números de página -->
+          @for (pagina of paginasVisibles(); track pagina) {
+            <button class="noticias-page-btn"
+                    [class.active]="pagina === paginaActual()"
+                    (click)="irAPagina(pagina)">
+              {{ pagina }}
+            </button>
+          }
+
+          <!-- Puntos suspensivos finales -->
+          @if (paginasVisibles()[paginasVisibles().length - 1] < totalPaginas()) {
+            <span class="text-white/20 px-1">...</span>
+          }
+
+          <!-- Botón siguiente -->
+          <button class="noticias-page-btn"
+                  [disabled]="paginaActual() === totalPaginas()"
+                  (click)="irAPagina(paginaActual() + 1)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+          <!-- Botón última página -->
+          <button class="noticias-page-btn"
+                  [disabled]="paginaActual() === totalPaginas()"
+                  (click)="irAPagina(totalPaginas())">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Info de paginación -->
+        <div class="text-center mt-4">
+          <span class="text-white/25 text-xs">
+            Página {{ paginaActual() }} de {{ totalPaginas() }}
+          </span>
+        </div>
+      }
+    }
+  </div>
+</section>

@@ -1,0 +1,210 @@
+<!-- Contenedor centrado con imagen de fondo -->
+<div class="hero min-h-screen auth-background">
+  <!-- Overlays con gradientes -->
+  <div class="hero-overlay bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+  <div class="hero-overlay bg-gradient-to-b from-black/30 via-transparent to-black/80"></div>
+
+  <!-- Contenido centrado -->
+  <div class="hero-content flex-col w-full max-w-md p-4">
+    <!-- Tarjeta de login -->
+    <div class="card w-full bg-base-100/5 backdrop-blur-xl border border-white/10 shadow-2xl">
+      <div class="card-body p-8">
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+          <img src="/images/LOGO_FINAL_VERSION%20(1).svg" alt="Logo" class="auth-logo" />
+        </div>
+
+        <!-- Título "Crear cuenta" -->
+        <h2 class="text-center text-2xl font-bold text-[#FFED00] uppercase tracking-wide mb-6">
+          Crear cuenta
+        </h2>
+
+        @if (notificationType) {
+          <div
+            class="alert py-2 px-3 mb-4 text-sm"
+            [class.alert-success]="notificationType === 'success'"
+            [class.alert-error]="notificationType === 'error'"
+          >
+            {{ notificationMessage }}
+          </div>
+        }
+
+        <form
+          [formGroup]="userForm"
+          class="form-control gap-4"
+          (ngSubmit)="getDataForm()"
+        >
+          <!-- Campo de usuario -->
+          <div>
+            <label for="username" class="label">
+              <span class="label-text auth-label">Usuario</span>
+            </label>
+            <input
+              type="text"
+              class="input input-bordered w-full auth-input"
+              name="username"
+              id="username"
+              placeholder="Introduzca el nombre de usuario"
+              formControlName="username"
+            />
+          </div>
+
+          <!-- Campo de email -->
+          <div>
+            <label for="email" class="label">
+              <span class="label-text auth-label">Email</span>
+            </label>
+            <input
+              type="email"
+              class="input input-bordered w-full auth-input"
+              name="email"
+              id="email"
+              placeholder="Introduzca el email"
+              formControlName="email"
+            />
+          </div>
+
+          <!-- Campo de contraseña -->
+          <div>
+            <label for="password" class="label">
+              <span class="label-text auth-label">Contraseña</span>
+            </label>
+            <div class="relative">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="input input-bordered w-full auth-input pr-12"
+                name="password"
+                id="password"
+                placeholder="Introduzca la contraseña"
+                formControlName="password"
+              />
+              <button
+                type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-0 border-0 bg-transparent cursor-pointer"
+                (click)="showPassword = !showPassword"
+              >
+                @if (!showPassword) {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-white/60 transition-all duration-300 ease-in-out"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                }
+                @if (showPassword) {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-white/60 transition-all duration-300 ease-in-out"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                }
+              </button>
+            </div>
+
+            @if (userForm.get('password')?.touched && userForm.get('password')?.invalid) {
+              <div class="alert alert-warning py-2 px-3 mt-2 mb-0 text-sm">
+                Contraseña inválida: usa entre 8 y 12 caracteres, al menos una mayúscula y un carácter especial.
+              </div>
+            }
+          </div>
+
+          <!-- Campo de confirmar contraseña -->
+          <div>
+            <label for="confirmPassword" class="label">
+              <span class="label-text auth-label">Confirmar contraseña</span>
+            </label>
+            <div class="relative">
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                class="input input-bordered w-full auth-input pr-12"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Introduzca la contraseña de nuevo"
+                formControlName="confirmPassword"
+              />
+              <button
+                type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-0 border-0 bg-transparent cursor-pointer"
+                (click)="showConfirmPassword = !showConfirmPassword"
+              >
+                @if (!showConfirmPassword) {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-white/60 transition-all duration-300 ease-in-out"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                }
+                @if (showConfirmPassword) {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5 text-white/60 transition-all duration-300 ease-in-out"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                }
+              </button>
+            </div>
+
+            @if (userForm.get('confirmPassword')?.touched && userForm.errors?.['passwordMismatch']) {
+              <div class="alert alert-error py-2 px-3 mt-2 mb-0 text-sm">
+                Las contraseñas no coinciden.
+              </div>
+            }
+          </div>
+
+          <!-- Campo de fecha de nacimiento -->
+          <div>
+            <label for="fechaNacimiento" class="label">
+              <span class="label-text auth-label">Fecha de nacimiento</span>
+            </label>
+            <input
+              type="date"
+              class="input input-bordered w-full auth-input"
+              name="fechaNacimiento"
+              id="fechaNacimiento"
+              formControlName="fechaNacimiento"
+            />
+          </div>
+
+          <!-- Botones -->
+          <div class="flex justify-center items-center w-full gap-2 mt-5">
+            <button
+              type="submit"
+              class="btn btn-primary flex-1 max-w-[160px]"
+              [disabled]="!userForm.valid"
+            >
+              Crear cuenta
+            </button>
+            <div class="divider divider-horizontal text-warning/60 m-0">O</div>
+            <a
+              class="btn btn-warning btn-outline flex-1 max-w-[160px]"
+              [routerLink]="['/daznfantasy/login']"
+            >
+              Ya tengo una cuenta
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

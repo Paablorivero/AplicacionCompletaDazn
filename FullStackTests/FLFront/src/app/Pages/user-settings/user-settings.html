@@ -1,0 +1,264 @@
+<main class="max-w-[680px] mx-auto px-6 py-12 flex flex-col gap-4">
+  <!--Volver a Home-->
+  <div class="fade-up fade-up-1">
+    <button type="button" routerLink="/daznfantasy/home"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/40 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white/70 transition-all">
+      Volver al menu
+    </button>
+  </div>
+  <!--Header-->
+  <div class="mb-6 fade-up fade-up-1">
+    <h1 class="text-2xl font-bold text-white">
+      Ajustes de <span class="gradient-text">usuario</span>
+    </h1>
+    <p class="mt-1 text-sm text-white/30">Gestiona tu perfil y preferencias de cuenta</p>
+  </div>
+
+  <!--Datos personales-->
+  <div class="nav-card fade-up fade-up-1">
+
+    <div class="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
+      <span class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+        Datos personales
+      </span>
+    </div>
+
+    <div class="px-6 py-6">
+
+      <!--Avatar-->
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm text-black flex-shrink-0"
+             style="background: #FFED00;">
+          {{ userInitials }}
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-white">{{ profileForm.get('username')?.value }}</p>
+          <p class="text-xs text-white/30">Miembro desde 2026</p>
+        </div>
+      </div>
+
+      @if (loadingProfile) {
+        <p class="mb-4 text-sm text-white/60">Cargando datos del usuario...</p>
+      }
+      @if (profileError) {
+        <p class="mb-4 text-sm text-red-400">{{ profileError }}</p>
+      }
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div class="flex flex-col gap-1 col-span-2">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Nombre de usuario
+            </label>
+            <input type="text" formControlName="username"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+          <div class="flex flex-col gap-1 col-span-2">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Email
+            </label>
+            <input type="email" formControlName="email"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Fecha de nacimiento
+            </label>
+            <input type="date" formControlName="birthDate"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+        </div>
+
+        <div class="flex gap-3 mt-6">
+          <button type="submit"
+                  [disabled]="profileForm.invalid || loadingProfile"
+                  class="px-5 py-2 rounded-lg text-sm font-semibold text-black transition-opacity hover:opacity-85 disabled:opacity-40 disabled:cursor-not-allowed"
+                  style="background: #FFED00; border: 1px solid #FFED00;">
+            Guardar cambios
+          </button>
+          <button type="button" (click)="resetProfileForm()"
+                  class="px-4 py-2 rounded-lg text-sm font-medium text-white/40 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white/70 transition-all">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!--Seguridad-->
+  <div class="nav-card fade-up fade-up-2">
+
+    <div class="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
+      <span class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">Seguridad</span>
+      <span class="dazn-badge-yellow inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.6rem] font-bold tracking-wider uppercase text-[#FFED00]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#FFED00] dazn-pulse"></span>
+        Próximamente
+      </span>
+    </div>
+
+    <div class="px-6 py-6">
+      <form [formGroup]="passwordForm"><!--(ngSubmit)="onUpdatePassword()-->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div class="flex flex-col gap-1 col-span-2">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Contraseña actual
+            </label>
+            <input type="password" formControlName="currentPassword" placeholder="••••••••"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Nueva contraseña
+            </label>
+            <input type="password" formControlName="newPassword" placeholder="••••••••"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">
+              Confirmar contraseña
+            </label>
+            <input type="password" formControlName="confirmPassword" placeholder="••••••••"
+                   class="w-full bg-[rgba(23,23,23,0.8)] border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/20 outline-none focus:border-[#FFED00] focus:shadow-[0_0_0_2px_rgba(255,237,0,0.08)] transition-all"/>
+          </div>
+
+        </div>
+
+        <div class="mt-6">
+          <button type="submit"
+                  [disabled]="passwordForm.invalid"
+                  class="px-5 py-2 rounded-lg text-sm font-semibold text-black transition-opacity hover:opacity-85 disabled:opacity-40 disabled:cursor-not-allowed"
+                  style="background: #FFED00; border: 1px solid #FFED00;">
+            Actualizar contraseña
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!--Notificaciones – Próximamente-->
+  <div class="nav-card fade-up fade-up-3 opacity-45 pointer-events-none">
+
+    <div class="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
+      <span class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">Notificaciones</span>
+      <span class="dazn-badge-yellow inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.6rem] font-bold tracking-wider uppercase text-[#FFED00]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#FFED00] dazn-pulse"></span>
+        Próximamente
+      </span>
+    </div>
+
+    <div class="px-6 py-1 flex flex-col divide-y divide-white/[0.06]">
+      <div class="flex items-center justify-between py-4">
+        <div>
+          <p class="text-sm font-medium text-white">Alertas de mercado</p>
+          <p class="text-xs text-white/30 mt-0.5">Recibe avisos cuando un jugador cambia de precio</p>
+        </div>
+        <div class="w-[38px] h-[21px] rounded-full bg-white/[0.08] border border-white/10 relative flex-shrink-0">
+          <span class="absolute w-[15px] h-[15px] rounded-full bg-white/20 top-[3px] left-[3px]"></span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between py-4">
+        <div>
+          <p class="text-sm font-medium text-white">Resultados en directo</p>
+          <p class="text-xs text-white/30 mt-0.5">Notificaciones durante los partidos</p>
+        </div>
+        <div class="w-[38px] h-[21px] rounded-full bg-white/[0.08] border border-white/10 relative flex-shrink-0">
+          <span class="absolute w-[15px] h-[15px] rounded-full bg-white/20 top-[3px] left-[3px]"></span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between py-4">
+        <div>
+          <p class="text-sm font-medium text-white">Resumen semanal</p>
+          <p class="text-xs text-white/30 mt-0.5">Un email con tu rendimiento cada semana</p>
+        </div>
+        <div class="w-[38px] h-[21px] rounded-full bg-white/[0.08] border border-white/10 relative flex-shrink-0">
+          <span class="absolute w-[15px] h-[15px] rounded-full bg-white/20 top-[3px] left-[3px]"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--Apariencia – Próximamente-->
+  <div class="nav-card fade-up fade-up-4 opacity-45 pointer-events-none">
+
+    <div class="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
+      <span class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-white/30">Apariencia</span>
+      <span class="dazn-badge-yellow inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.6rem] font-bold tracking-wider uppercase text-[#FFED00]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#FFED00] dazn-pulse"></span>
+        Próximamente
+      </span>
+    </div>
+
+    <div class="px-6 py-6">
+      <p class="text-sm text-white/30 mb-4">Personaliza el aspecto visual de la aplicación</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+        <div class="rounded-xl border border-white/10 bg-[rgba(23,23,23,0.6)] p-3 flex flex-col gap-2">
+          <div class="h-14 rounded-lg border border-white/[0.06]"
+               style="background: linear-gradient(135deg, #0d0d0d 50%, #161616 100%);"></div>
+          <p class="text-[0.7rem] font-semibold text-center text-white/30">Oscuro</p>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-[rgba(23,23,23,0.6)] p-3 flex flex-col gap-2">
+          <div class="h-14 rounded-lg border border-white/[0.06]"
+               style="background: linear-gradient(135deg, #f5f5f5 50%, #e8e8e8 100%);"></div>
+          <p class="text-[0.7rem] font-semibold text-center text-white/30">Claro</p>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-[rgba(23,23,23,0.6)] p-3 flex flex-col gap-2">
+          <div class="h-14 rounded-lg border border-white/[0.06]"
+               style="background: linear-gradient(135deg, #0d0d0d 50%, #f5f5f5 50%);"></div>
+          <p class="text-[0.7rem] font-semibold text-center text-white/30">Sistema</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!--Zona de peligro-->
+  <div class="nav-card fade-up fade-up-5 border-[rgba(240,62,62,0.2)]">
+
+    <div class="px-6 py-4 border-b border-[rgba(240,62,62,0.15)]">
+      <span class="text-[0.65rem] font-semibold tracking-[0.16em] uppercase text-[rgba(240,62,62,0.6)]">
+        Zona de peligro
+      </span>
+    </div>
+
+    <div class="px-6 py-6">
+      <p class="text-sm text-white/30 leading-relaxed mb-5">
+        Al eliminar tu cuenta se borrarán todos tus datos, ligas y estadísticas de forma permanente. Esta acción no se puede deshacer.
+      </p>
+      <button class="px-5 py-2 rounded-lg text-sm font-semibold text-[#f03e3e] bg-transparent border border-[rgba(240,62,62,0.6)] hover:bg-[rgba(240,62,62,0.08)] transition-all">
+        Eliminar cuenta <!--(click)="onDeleteAccount()"-->
+      </button>
+    </div>
+  </div>
+
+  @if (cambiosGuardadospopup()) {
+    <div class="fixed top-20 left-1/2 -translate-x-1/2 z-50">
+      <div role="alert" class="alert alert-vertical sm:alert-horizontal w-auto max-w-md border"
+           style="background-color: rgba(255,237,0,0.1); border-color: rgba(255,237,0,0.3);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0" style="stroke: #FFED00;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-white font-medium">¡Perfil actualizado correctamente!</span>
+        <div>
+          <button class="btn btn-sm border-0 text-black font-semibold" style="background: #FFED00;"
+                  (click)="cambiosGuardadospopup.set(false)">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</main>

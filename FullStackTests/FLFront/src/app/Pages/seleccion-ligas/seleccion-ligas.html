@@ -1,0 +1,197 @@
+<div class="leagues-page">
+  <section class="leagues-hero">
+    <div class="hero-image"></div>
+    <div class="hero-dark"></div>
+    <div class="hero-glow hero-glow-left"></div>
+    <div class="hero-glow hero-glow-right"></div>
+
+    <div class="hero-content">
+      <div class="hero-back-wrap">
+        <button
+          type="button"
+          routerLink="/daznfantasy/home"
+          class="hero-back-btn"
+        >
+          Volver al menu
+        </button>
+      </div>
+      <div class="hero-text-stack">
+        <h1 class="hero-title">Seleccion de <span>Ligas</span></h1>
+        <p class="hero-subtitle">
+          Gestiona tus competiciones desde un solo sitio: revisa tus ligas activas, unete a nuevas y entra
+          rapido a la plantilla de cada equipo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="seleccion-content">
+    <div class="ligas-tools">
+      <div class="toolbar-left">
+        <div class="tool-group">
+          <label class="tool-label">Gestion de ligas</label>
+          <p class="tool-help">Crea nuevas ligas o entra a la plantilla de las que ya juegas.</p>
+        </div>
+        <button
+          type="button"
+          class="ligas-primary-btn"
+          (click)="abrirModalCrearLiga()"
+        >
+          Añadir liga
+        </button>
+      </div>
+
+      <div class="toolbar-stats">
+        <div class="stat-pill" title="Ligas en las que participas">
+          <span>Unidas</span>
+          <strong>{{ ligasUnidas.length }}</strong>
+        </div>
+        <div class="stat-pill" title="Ligas disponibles para unirte">
+          <span>Disponibles</span>
+          <strong>{{ ligasDisponibles.length }}</strong>
+        </div>
+      </div>
+    </div>
+
+    @if (loading) {
+      <p class="seleccion-message">Cargando ligas...</p>
+    }
+
+    @if (error) {
+      <div class="ligas-alert">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/>
+        </svg>
+        <span>{{ error }}</span>
+        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="cerrarError()">Aceptar</button>
+      </div>
+    }
+
+    <section class="ligas-grid">
+      <article class="ligas-panel">
+        <div class="panel-header">
+          <h2>Ligas en las que participas</h2>
+          <span class="panel-count">{{ ligasUnidas.length }}</span>
+        </div>
+
+        <div class="panel-scroll">
+          @if (!loading && ligasUnidas.length === 0) {
+            <p class="seleccion-message">Todavia no estas unido a ninguna liga.</p>
+          }
+
+          @if (ligasUnidas.length > 0) {
+            <div class="overflow-x-auto">
+              <table class="table ligas-table min-w-[560px]">
+                <thead>
+                  <tr>
+                    <th>Liga</th>
+                    <th>Tu equipo</th>
+                    <th>Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (liga of ligasUnidas; track liga.equipoId) {
+                    <tr>
+                      <td>{{ liga.nombreLiga }}</td>
+                      <td>{{ liga.nombreEquipo }}</td>
+                      <td>
+                        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="mostrarPlantilla(liga)">
+                          Mostrar plantilla
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="ligas-panel">
+        <div class="panel-header">
+          <h2>Ligas disponibles</h2>
+          <span class="panel-count">{{ ligasDisponibles.length }}</span>
+        </div>
+
+        <div class="panel-scroll">
+          @if (!loading && ligasDisponibles.length === 0) {
+            <p class="seleccion-message">Ahora mismo no hay ligas disponibles para unirse.</p>
+          }
+
+          @if (ligasDisponibles.length > 0) {
+            <div class="overflow-x-auto">
+              <table class="table ligas-table min-w-[430px]">
+                <thead>
+                  <tr>
+                    <th>Liga</th>
+                    <th>Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (liga of ligasDisponibles; track liga.ligaId) {
+                    <tr>
+                      <td>{{ liga.nombreLiga }}</td>
+                      <td>
+                        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="abrirModal(liga)">
+                          Unirse
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </article>
+    </section>
+
+    @if (mostrarModal) {
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <h3 class="modal-title">Unirse a la liga</h3>
+
+          <input
+            type="text"
+            [(ngModel)]="nombreEquipo"
+            placeholder="Nombre del equipo"
+            class="modal-input"
+          />
+
+          <div class="modal-actions">
+            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarUnirse()">Unirse</button>
+            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModal()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (mostrarModalCrearLiga) {
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <h3 class="modal-title">Añadir nueva liga</h3>
+
+          <input
+            type="text"
+            [(ngModel)]="nombreNuevaLiga"
+            placeholder="Nombre de la liga"
+            class="modal-input"
+          />
+
+          <input
+            type="text"
+            [(ngModel)]="nombreEquipoNuevaLiga"
+            placeholder="Nombre del equipo"
+            class="modal-input mt-3"
+          />
+
+          <div class="modal-actions">
+            <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="confirmarCrearLiga()">Añadir</button>
+            <button class="ligas-secondary-btn ligas-secondary-btn-sm" (click)="cancelarModalCrearLiga()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+</div>

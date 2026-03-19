@@ -1,0 +1,138 @@
+<!-- Hero de clasificación -->
+<section class="relative flex items-center overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center brightness-50 contrast-125 saturate-50"
+       style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2000&auto=format&fit=crop')">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+
+  <div class="relative z-10 container mx-auto px-6 py-16 max-w-6xl">
+    <div class="max-w-2xl space-y-4 fade-up fade-up-1">
+      <button
+        type="button"
+        routerLink="/daznfantasy/home"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white/40 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white/70 transition-all mb-2"
+      >
+        Volver al menú
+      </button>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none">
+        @if (nombreLiga()) {
+          <span class="gradient-text">{{ nombreLiga() }}</span>
+        } @else {
+          Tabla de <span class="gradient-text">Clasificación</span>
+        }
+      </h1>
+      <p class="text-white/60 text-base leading-relaxed max-w-xl">
+        Consulta la clasificación actualizada de tu liga fantasy. Comprueba tu posición y la de tus rivales.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Contenido principal -->
+<section class="py-10 bg-[#0a0a0a]">
+  <div class="container mx-auto px-6 max-w-4xl">
+
+    <!-- Estado de carga -->
+    @if (cargando()) {
+      <div class="flex flex-col items-center justify-center py-20 gap-4">
+        <span class="loading loading-spinner loading-lg text-yellow-400"></span>
+        <p class="text-white/40 text-sm">Cargando clasificación...</p>
+      </div>
+    }
+
+    <!-- Error -->
+    @if (error()) {
+      <div class="flex flex-col items-center justify-center py-20 gap-4 fade-up fade-up-1">
+        <svg class="w-12 h-12 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        </svg>
+        <p class="text-white/40 text-sm">{{ error() }}</p>
+      </div>
+    }
+
+    <!-- Tabla de clasificación -->
+    @if (!cargando() && !error() && clasificacion().length > 0) {
+      <div class="fade-up fade-up-2">
+
+        <!-- Cabecera de la tabla -->
+        <div class="grid grid-cols-12 gap-2 px-4 py-2 mb-2 text-xs font-bold tracking-wider uppercase text-white/30">
+          <div class="col-span-1 text-center">#</div>
+          <div class="col-span-8">Equipo</div>
+          <div class="col-span-3 text-center">Puntos</div>
+        </div>
+
+        <!-- Filas de la tabla -->
+        <div class="flex flex-col gap-2">
+          @for (equipo of clasificacion(); track equipo.equipo_id; let i = $index) {
+            <div
+              class="grid grid-cols-12 gap-2 items-center px-4 py-4 rounded-xl border transition-all duration-300 hover:scale-[1.01]"
+              [class]="i === 0
+                ? 'bg-yellow-400/10 border-yellow-400/40 hover:bg-yellow-400/15'
+                : i === 1
+                  ? 'bg-white/5 border-white/15 hover:bg-white/8'
+                  : i === 2
+                    ? 'bg-white/5 border-white/10 hover:bg-white/8'
+                    : 'bg-white/3 border-white/5 hover:bg-white/6'"
+            >
+              <!-- Posición -->
+              <div class="col-span-1 flex justify-center">
+                @if (i === 0) {
+                  <span class="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-400/20 text-yellow-400 font-black text-sm">1</span>
+                } @else if (i === 1) {
+                  <span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/70 font-black text-sm">2</span>
+                } @else if (i === 2) {
+                  <span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/50 font-black text-sm">3</span>
+                } @else {
+                  <span class="text-white/30 font-mono text-sm font-semibold">{{ i + 1 }}</span>
+                }
+              </div>
+
+              <!-- Nombre del equipo -->
+              <div class="col-span-8 flex items-center gap-3 min-w-0">
+                <div class="flex flex-col min-w-0">
+                  <span
+                    class="font-bold text-sm leading-tight truncate"
+                    [class]="i === 0 ? 'text-yellow-400' : 'text-white'"
+                  >{{ equipo.nombre_equipo }}</span>
+                  @if (i === 0) {
+                    <span class="text-yellow-400/60 text-xs font-mono tracking-wide">Líder</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Puntos -->
+              <div class="col-span-3 flex justify-center">
+                <span
+                  class="font-black text-lg tabular-nums"
+                  [class]="i === 0 ? 'text-yellow-400' : 'text-white/80'"
+                >{{ equipo.puntos }}</span>
+                <span class="text-white/30 text-xs self-end mb-1 ml-1">pts</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Footer info -->
+        <div class="mt-6 text-center">
+          <span class="text-white/20 text-xs font-mono">
+            {{ clasificacion().length }} equipos en la liga
+          </span>
+        </div>
+      </div>
+    }
+
+    <!-- Sin datos -->
+    @if (!cargando() && !error() && clasificacion().length === 0) {
+      <div class="flex flex-col items-center justify-center py-20 gap-4 fade-up fade-up-1">
+        <svg class="w-12 h-12 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <p class="text-white/40 text-sm">No hay datos de clasificación disponibles.</p>
+      </div>
+    }
+
+  </div>
+</section>

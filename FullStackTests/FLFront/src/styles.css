@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Variables de color FNTS */
+:root {
+  --fnts-yellow: #FFED00;
+  --fnts-yellow-bright: #FFFF00;
+  --fnts-yellow-dark: #FFD700;
+  --fnts-black: #000000;
+  --fnts-dark: #0a0a0a;
+}
+
+body {
+  background-color: var(--fnts-dark);
+  color: #ffffff;
+}
+
+/* Botones globales */
+.btn-primary {
+  background: linear-gradient(135deg, var(--fnts-yellow), var(--fnts-yellow-dark));
+  color: var(--fnts-black);
+  box-shadow: 0 4px 20px rgba(255, 237, 0, 0.4);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 237, 0, 0.5);
+  background: linear-gradient(135deg, var(--fnts-yellow-bright), var(--fnts-yellow));
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--fnts-yellow);
+  border: 2px solid rgba(255, 237, 0, 0.5);
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 237, 0, 0.1);
+  border-color: rgba(255, 237, 0, 0.8);
+  color: var(--fnts-yellow-bright);
+}
+
+/* Gradient text compartido */
+.gradient-text {
+  background: linear-gradient(135deg, #FFED00 0%, #FFFF00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Badge y pulse compartidos */
+.dazn-badge-yellow {
+  background: rgba(255, 237, 0, 0.1);
+  border: 1px solid rgba(255, 237, 0, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+.dazn-pulse {
+  animation: pulse-yellow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-yellow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* Card base compartida */
+.nav-card {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(23, 23, 23, 0.6);
+  transition: all 0.5s ease;
+}
+
+/* Animación fade-up compartida */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up   { animation: fadeUp 0.65s ease both; }
+.fade-up-1 { animation-delay: 0.05s; }
+.fade-up-2 { animation-delay: 0.2s; }
+.fade-up-3 { animation-delay: 0.32s; }
+.fade-up-4 { animation-delay: 0.42s; }
+.fade-up-5 { animation-delay: 0.50s; }
+
+/* Base compartida para pantallas de auth */
+.auth-background {
+  background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=2000&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.auth-logo {
+  max-width: 200px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.auth-logo:hover {
+  transform: scale(1.05);
+}
+
+.auth-label {
+  color: #FFED00 !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.95rem;
+}
+
+.auth-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.auth-input:focus {
+  border-color: rgba(255, 237, 0, 0.5) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(255, 237, 0, 0.2) !important;
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .auth-logo {
+    max-width: 150px;
+  }
+}

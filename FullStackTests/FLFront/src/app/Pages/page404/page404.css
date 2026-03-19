@@ -1,0 +1,40 @@
+/* Grid de fondo */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+}
+
+.center-glow {
+  position: fixed;
+  width: min(500px, 88vw);
+  height: min(300px, 56vh);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255,237,0,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.logo-bg {
+  position: fixed;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(700px, 95vw);
+  opacity: 0.15;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+.logo-bg img {
+  width: 100%;
+}
+
+.btn {
+  background-color: #FFED00;
+  border-color: #FFED00;
+}

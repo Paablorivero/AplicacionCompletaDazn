@@ -1,0 +1,327 @@
+.lineup-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lineup-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lineup-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 700;
+}
+
+.lineup-help {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.92rem;
+}
+
+.lineup-toast {
+  position: fixed;
+  top: 92px;
+  right: 24px;
+  z-index: 90;
+  max-width: min(420px, calc(100vw - 2rem));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  background: rgba(24, 24, 20, 0.95);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  padding: 0.72rem 0.85rem;
+}
+
+.lineup-toast p {
+  margin: 0;
+  color: #ffd38c;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.lineup-toast button {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.pitch {
+  position: relative;
+  padding: 1.25rem 0.75rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, #0b8d2f, #067324);
+  overflow: hidden;
+}
+
+.pitch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 560'%3E%3Crect width='800' height='560' fill='%23008300'/%3E%3Crect x='110' y='34' width='580' height='246' fill='none' stroke='white' stroke-width='3'/%3E%3Crect x='245' y='34' width='310' height='92' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='400' cy='235' r='13' fill='white'/%3E%3Ccircle cx='400' cy='559' r='92' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='400' cy='560' r='13' fill='white'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  transform: rotate(180deg);
+  transform-origin: center;
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pitch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.18));
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pitch-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 1rem;
+  gap: 0.75rem;
+  margin: 0.85rem 0;
+}
+
+.attackers-row {
+  width: 75%;
+  margin-inline: auto;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding-inline: 0;
+}
+
+.midfielders-row {
+  width: 68%;
+  margin-inline: auto;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding-inline: 0;
+}
+
+.defenders-row {
+  padding-inline: 0.35rem;
+}
+
+.goalkeeper-row {
+  margin-top: 1.35rem;
+  justify-content: center;
+}
+
+.player-slot {
+  border-radius: 14px;
+  cursor: grab;
+  transition: transform 0.16s ease;
+}
+
+.player-slot:hover {
+  transform: translateY(-2px);
+}
+
+.player-slot:active {
+  cursor: grabbing;
+}
+
+.bench-section {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  padding: 0.95rem;
+}
+
+.bench-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.bench-title {
+  margin: 0;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.bench-note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.78rem;
+}
+
+.bench-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  gap: 0.6rem;
+}
+
+.bench-actions {
+  margin-top: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.save-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(90deg, #6ee7b7, #34d399);
+  color: #08291c;
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.save-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.82rem;
+}
+
+.bench-slot {
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sell-btn {
+  border: 1px solid rgba(255, 95, 95, 0.45);
+  background: rgba(255, 95, 95, 0.12);
+  color: #ffb4b4;
+  border-radius: 10px;
+  padding: 0.32rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sell-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading-state {
+  margin: 1rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.62);
+  padding: 1rem;
+}
+
+.modal-card {
+  width: min(460px, 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #111317;
+  padding: 1rem;
+}
+
+.modal-card h3 {
+  margin: 0;
+  color: #fff;
+}
+
+.modal-card p {
+  margin: 0.7rem 0 0;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.modal-error {
+  color: #ff9898 !important;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+
+.modal-cancel-btn,
+.modal-confirm-btn {
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-cancel-btn {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-confirm-btn {
+  border: 1px solid rgba(110, 231, 183, 0.35);
+  background: rgba(110, 231, 183, 0.18);
+  color: #a7f3d0;
+}
+
+.modal-confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .lineup-page {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .pitch-row {
+    gap: 0.35rem;
+    padding-inline: 0.2rem;
+  }
+
+  .bench-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .lineup-toast {
+    top: 82px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+  }
+}

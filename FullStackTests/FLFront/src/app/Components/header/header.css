@@ -1,0 +1,281 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.header-logo-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: opacity 0.25s ease;
+}
+
+.header-logo-link:hover {
+  opacity: 0.85;
+}
+
+.header-logo {
+  height: 40px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+}
+
+/* Nav desktop */
+.header-nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.nav-pill:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-pill.nav-active {
+  color: #FFED00;
+  background: rgba(255, 237, 0, 0.08);
+}
+
+.nav-pill-accent {
+  color: #FFED00;
+  border: 1px solid rgba(255, 237, 0, 0.25);
+  padding: 0.4rem 1rem;
+}
+
+.nav-pill-accent:hover {
+  background: rgba(255, 237, 0, 0.1);
+  border-color: rgba(255, 237, 0, 0.45);
+  color: #FFED00;
+}
+
+.nav-pill-accent.nav-active {
+  background: rgba(255, 237, 0, 0.12);
+  border-color: rgba(255, 237, 0, 0.5);
+}
+
+.nav-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.nav-logo {
+  width: 5.2rem;
+  height: 1rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.nav-pill-laliga {
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  padding: 0.36rem 0.5rem;
+}
+
+.nav-pill-laliga:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  opacity: 0.92;
+}
+
+.nav-pill-laliga.nav-active {
+  background: #ffffff;
+  border-color: rgba(255, 237, 0, 0.85);
+}
+
+.nav-pill-admin {
+  color: #ffe866;
+  border: 1px solid rgba(255, 230, 102, 0.28);
+  background: linear-gradient(180deg, rgba(255, 237, 0, 0.14) 0%, rgba(255, 237, 0, 0.06) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 237, 0, 0.04);
+}
+
+.nav-pill-admin:hover {
+  color: #fff4a3;
+  border-color: rgba(255, 237, 0, 0.5);
+  background: linear-gradient(180deg, rgba(255, 237, 0, 0.2) 0%, rgba(255, 237, 0, 0.08) 100%);
+}
+
+.nav-pill-admin.nav-active {
+  color: #0f0f0f;
+  background: #ffed00;
+  border-color: #ffed00;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 0.5rem;
+}
+
+/* Hamburger */
+.header-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.header-hamburger:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile nav */
+.header-nav-mobile {
+  display: none;
+  flex-direction: column;
+  padding: 0.75rem 1.5rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-mobile-link:hover,
+.nav-mobile-link.nav-active {
+  color: #FFED00;
+  background: rgba(255, 237, 0, 0.06);
+}
+
+.nav-mobile-accent {
+  color: #FFED00;
+}
+
+.nav-mobile-admin {
+  color: #ffe866;
+  border: 1px solid rgba(255, 230, 102, 0.28);
+  background: linear-gradient(180deg, rgba(255, 237, 0, 0.14) 0%, rgba(255, 237, 0, 0.06) 100%);
+}
+
+.nav-mobile-admin:hover,
+.nav-mobile-admin.nav-active {
+  color: #0f0f0f;
+  border-color: #ffed00;
+  background: #ffed00;
+}
+
+.nav-mobile-laliga {
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  width: fit-content;
+  padding: 0.55rem 0.65rem;
+}
+
+.nav-mobile-laliga:hover,
+.nav-mobile-laliga.nav-active {
+  background: #ffffff;
+  border-color: rgba(255, 237, 0, 0.85);
+}
+
+.mobile-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 0.35rem 0.85rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .header-nav-desktop {
+    display: none;
+  }
+
+  .header-hamburger {
+    display: flex;
+  }
+
+  .header-nav-mobile {
+    display: flex;
+  }
+
+  .header-logo {
+    height: 34px;
+    max-width: 145px;
+  }
+}
