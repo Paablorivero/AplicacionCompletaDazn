@@ -1,0 +1,83 @@
+services:
+  # ---------------------------------
+  # 1. BASE DE DATOS
+  # ---------------------------------
+  db:
+    image: postgres:15
+    container_name: fantasy_db
+    restart: always
+    environment:
+      - POSTGRES_DB=fantasyleague
+      - POSTGRES_USER=postgres       
+      - POSTGRES_PASSWORD=postgres 
+      - POSTGRES_HOST=db   
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./bbdd:/docker-entrypoint-initdb.d
+      # Volumen para persistencia de datos
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - fantasy-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d fantasyleague"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ---------------------------------
+  # 2. BACKEND
+  # ---------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fantasy_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=fantasyleague
+      - JWT_SECRET=b1f4478f479447915e0890a25414eb9933658b324c34778c62e1259b91f725f4
+      - JWT_EXPIRE=1h  
+      - PORT=3000
+      - API_TOKEN=5562c1bec63f5a3b4f43171bc1c158d9
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/dist
+    networks:
+      - fantasy-network
+    
+
+  # ---------------------------------
+  # 3. FRONTEND
+  # ---------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fantasy_frontend
+    restart: always
+
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - fantasy-network
+
+networks:
+  fantasy-network:
+    driver: bridge
+
+volumes:
+  pgdata:
