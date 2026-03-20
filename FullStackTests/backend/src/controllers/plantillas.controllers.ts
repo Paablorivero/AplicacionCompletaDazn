@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import Plantilla from "../models/plantillas.models";
 import Jugador from "../models/jugadores.model";
+import EquipoProfesional from "../models/equiposProfesionales.models";
 
 export async function obtenerPlantillaActual(req: Request, res: Response) {
     const equipoId = req.params.equipoId;
@@ -36,7 +37,14 @@ export async function obtenerPlantillaActual(req: Request, res: Response) {
                         "nombre",
                         "posicion",
                         "foto",
-                        "valor"
+                        "valor",
+                        "nacionalidad"
+                    ],
+                    include: [
+                        {
+                            model: EquipoProfesional,
+                            attributes: ["logo"]
+                        }
                     ]
                 }
             ]
@@ -46,7 +54,12 @@ export async function obtenerPlantillaActual(req: Request, res: Response) {
             return res.status(200).json([]);
         }
 
-        const jugadores = plantilla.map((p: any) => p.Jugador).filter(Boolean);
+        const jugadores = plantilla.map((p: any) => {
+            const j = p.Jugador;
+            if (!j) return null;
+            const { EquipoProfesional: ep, ...rest } = j.toJSON();
+            return { ...rest, equipoProfesionalLogo: ep?.logo ?? null };
+        }).filter(Boolean);
 
         return res.status(200).json(jugadores);
     } catch (e) {
@@ -85,7 +98,14 @@ export async function obtenerPlantillaActiva(req: Request, res: Response) {
                         "nombre",
                         "posicion",
                         "foto",
-                        "valor"
+                        "valor",
+                        "nacionalidad"
+                    ],
+                    include: [
+                        {
+                            model: EquipoProfesional,
+                            attributes: ["logo"]
+                        }
                     ]
                 }
             ]
@@ -95,7 +115,12 @@ export async function obtenerPlantillaActiva(req: Request, res: Response) {
             return res.status(200).json([]);
         }
 
-        const jugadores = plantilla.map((p: any) => p.Jugador).filter(Boolean);
+        const jugadores = plantilla.map((p: any) => {
+            const j = p.Jugador;
+            if (!j) return null;
+            const { EquipoProfesional: ep, ...rest } = j.toJSON();
+            return { ...rest, equipoProfesionalLogo: ep?.logo ?? null };
+        }).filter(Boolean);
 
         return res.status(200).json(jugadores);
     } catch (e) {

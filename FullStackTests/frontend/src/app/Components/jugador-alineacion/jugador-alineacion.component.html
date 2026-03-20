@@ -1,13 +1,30 @@
-<!-- Tarjeta visual reutilizable para representar un jugador en campo o banquillo. -->
-<article class="player-card" [class.player-selected]="selected">
-  <div class="player-head">
-    <span class="player-role">{{ posicionLabel }}</span>
+<article class="fut-card" [class.fut-card--selected]="selected">
+  @if (jugador.equipoProfesionalLogo) {
+    <img class="fut-card__watermark"
+        [src]="jugador.equipoProfesionalLogo"
+        alt="" />
+  }
+
+  @if (jugador.equipoProfesionalLogo) {
+    <img class="fut-card__badge"
+        [src]="jugador.equipoProfesionalLogo"
+        alt="" />
+  }
+
+  <div class="fut-card__header">
+    <div class="fut-card__meta">
+      <span class="fut-card__rating">{{ valorLabel }}</span>
+      <span class="fut-card__pos">{{ posicionLabel }}</span>
+    </div>
   </div>
 
-  <div class="player-avatar-wrap">
-    <img [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" [alt]="jugador.nombre" class="player-avatar" />
+  <div class="fut-card__photo">
+    <img [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+        [alt]="jugador.nombre" />
   </div>
-  <div class="player-content">
-    <p class="player-name">{{ jugador.nombre }}</p>
+
+  <div class="fut-card__footer">
+    <div class="fut-card__stripe"></div>
+    <p class="fut-card__name">{{ jugador.nombre }}</p>
   </div>
 </article>

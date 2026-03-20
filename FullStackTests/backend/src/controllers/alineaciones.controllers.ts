@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Alineacion from "../models/alineaciones.models";
 import Jugador from "../models/jugadores.model";
+import EquipoProfesional from "../models/equiposProfesionales.models";
 import {guardarAlineacion} from "../services/guardarAlineacion.service";
 
 export async function obtenerAlineacionActual(req: Request, res: Response){
@@ -23,7 +24,15 @@ export async function obtenerAlineacionActual(req: Request, res: Response){
                         "jugadorId",
                         "nombre",
                         "posicion",
-                        "foto"
+                        "foto",
+                        "valor",
+                        "nacionalidad"
+                    ],
+                    include: [
+                        {
+                            model: EquipoProfesional,
+                            attributes: ["logo"]
+                        }
                     ]
                 }
             ]
@@ -35,7 +44,12 @@ export async function obtenerAlineacionActual(req: Request, res: Response){
             });
         }
 
-        const jugadores = alineacion.map((a: any) => a.Jugador);
+        const jugadores = alineacion.map((a: any) => {
+            const j = a.Jugador;
+            if (!j) return null;
+            const { EquipoProfesional: ep, ...rest } = j.toJSON();
+            return { ...rest, equipoProfesionalLogo: ep?.logo ?? null };
+        }).filter(Boolean);
 
         return res.status(200).json(jugadores);
 

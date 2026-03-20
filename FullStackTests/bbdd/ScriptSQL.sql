@@ -126,8 +126,30 @@ FROM equipos e
 LEFT JOIN alineaciones a ON a.equipo_id = e.equipo_id
 GROUP BY e.liga_id, e.equipo_id, e.nombre;
 
--- [Tus funciones sortear_jugadores_posicion, crear_ligas_demo, etc. permanecen igual]
--- [Asegúrate de copiar aquí tus funciones del script anterior]
+CREATE OR REPLACE FUNCTION inicializar_40_ligas_demo()
+RETURNS void AS $$
+DECLARE
+    rec RECORD;
+    liga_num integer := 1;
+BEGIN
+    FOR rec IN
+        SELECT usuario_id, username
+        FROM usuarios
+        WHERE username LIKE 'user\_demo\_%'
+        ORDER BY username
+    LOOP
+        INSERT INTO ligas (nombre_liga, usuario_id)
+        VALUES ('Liga Demo ' || liga_num, rec.usuario_id);
+        liga_num := liga_num + 1;
+
+        INSERT INTO ligas (nombre_liga, usuario_id)
+        VALUES ('Liga Demo ' || liga_num, rec.usuario_id);
+        liga_num := liga_num + 1;
+    END LOOP;
+
+    RAISE NOTICE 'Se crearon % ligas demo', liga_num - 1;
+END;
+$$ LANGUAGE plpgsql;
 
 -- 6. INSERCIÓN DE DATOS INICIALES
 INSERT INTO temporadas (f_inicio, f_fin) VALUES ('2025-08-16', '2026-06-15');
@@ -150,8 +172,7 @@ BEGIN
 END $$;
 
 -- 7. EJECUCIÓN DE SEED
--- IMPORTANTE: Solo llamar si hay jugadores cargados, sino las funciones de sorteo darán error.
--- SELECT inicializar_40_ligas_demo(); 
+SELECT inicializar_40_ligas_demo();
 
 -- 8. PERMISOS FINALES
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO usuario_prueba;

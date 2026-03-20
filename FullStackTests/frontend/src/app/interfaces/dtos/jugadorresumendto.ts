@@ -7,4 +7,6 @@ export interface JugadorResumenDto {
   posicion: 'Goalkeeper' | 'Defender' | 'Midfielder' | 'Attacker';
   foto: string;
   valor?: number;
+  equipoProfesionalLogo?: string | null;
+  nacionalidad?: string | null;
 }

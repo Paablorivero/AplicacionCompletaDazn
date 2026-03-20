@@ -6,6 +6,7 @@ import Temporada from "./temporadas.models";
 import Alineacion from "./alineaciones.models";
 import Jugador from "./jugadores.model";
 import Plantilla from "./plantillas.models";
+import EquipoProfesional from "./equiposProfesionales.models";
 
 // En este archivo vamos a tener simplemente las asociaciones que existen entre las diferentes entidades
 // Una vez hecho, simplemente debemos importar y llamar a esta función en app.ts
@@ -46,5 +47,6 @@ export function relationsModels(){
         otherKey: "usuarioId"
     });
 
-
+    EquipoProfesional.hasMany(Jugador, { foreignKey: "equipoProfesional" });
+    Jugador.belongsTo(EquipoProfesional, { foreignKey: "equipoProfesional" });
 }

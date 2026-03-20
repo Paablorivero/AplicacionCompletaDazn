@@ -7,15 +7,7 @@
     </div>
   }
 
-  <!-- Cabecera informativa de la pantalla de alineación. -->
-  <header class="lineup-header">
-    <h1 class="lineup-title">
-      {{ 'lineup.title' | t }} <span class="gradient-text">{{ 'lineup.title2' | t }}</span>
-    </h1>
-    <p class="lineup-help">
-      {{ 'lineup.help' | t }}
-    </p>
-  </header>
+
 
   @if (loadError) {
     <p class="loading-state">{{ loadError }}</p>
