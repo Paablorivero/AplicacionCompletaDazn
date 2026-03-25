@@ -3,27 +3,41 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const useSSL = process.env.DB_SSL === 'true';
+const databaseUrl = process.env.DATABASE_URL;
 
-export const sequelize = new Sequelize(
-    process.env.DB_DATABASE as string,
-    process.env.DB_USER as string,
-    process.env.DB_PASSWORD as string,
-    {
-        dialect: 'postgres',
-        host: process.env.DB_HOST as string,
-        port: Number(process.env.DB_PORT) || 5432,
-        logging: false,
-        ...(useSSL && {
-            dialectOptions: {
-                ssl: {
-                    require: true,
-                    rejectUnauthorized: false,
-                },
-            },
-        }),
+function createSequelize(): Sequelize {
+    if (databaseUrl) {
+        console.log('Conectando con DATABASE_URL');
+        return new Sequelize(databaseUrl, {
+            dialect: 'postgres',
+            logging: false,
+        });
     }
-);
+
+    console.log('Conectando con variables individuales (DB_HOST, DB_DATABASE, etc.)');
+    const useSSL = process.env.DB_SSL === 'true';
+    return new Sequelize(
+        process.env.DB_DATABASE as string,
+        process.env.DB_USER as string,
+        process.env.DB_PASSWORD as string,
+        {
+            dialect: 'postgres',
+            host: process.env.DB_HOST as string,
+            port: Number(process.env.DB_PORT) || 5432,
+            logging: false,
+            ...(useSSL && {
+                dialectOptions: {
+                    ssl: {
+                        require: true,
+                        rejectUnauthorized: false,
+                    },
+                },
+            }),
+        }
+    );
+}
+
+export const sequelize = createSequelize();
 
 export async function testConnectionDB(){
 
