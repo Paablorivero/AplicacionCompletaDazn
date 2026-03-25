@@ -6,24 +6,30 @@ export async function getPlayersFromApi(){
     const liga: number = 140;
     const totalPaginas: number = 37;
 
-        for (let i = 1; i <= totalPaginas; i++) {
-            let listadoJugadores = await fetch(`https://v3.football.api-sports.io/players?season=${temporada}&league=${liga}&page=${i}`, {
-                method: "GET",
-                headers: {
-                    'x-apisports-key': process.env.API_TOKEN as string
-                }
-            });
+    console.log(`Sincronizando jugadores: ${totalPaginas} paginas...`);
 
-            if (!listadoJugadores.ok) {
-                throw new Error(`No se encontro el jugadores. Error ${listadoJugadores.status}`);
+    for (let i = 1; i <= totalPaginas; i++) {
+        const listadoJugadores = await fetch(`https://v3.football.api-sports.io/players?season=${temporada}&league=${liga}&page=${i}`, {
+            method: "GET",
+            headers: {
+                'x-apisports-key': process.env.API_TOKEN as string
             }
+        });
 
-            let data = await listadoJugadores.json();
-
-            await createOrUpdatePlayers(data.response);
-
+        if (!listadoJugadores.ok) {
+            throw new Error(`Error descargando jugadores pagina ${i}. Status: ${listadoJugadores.status}`);
         }
 
+        const data = await listadoJugadores.json();
+        await createOrUpdatePlayers(data.response);
+
+        if (i % 10 === 0 || i === totalPaginas) {
+            console.log(`Jugadores sincronizados: pagina ${i}/${totalPaginas}`);
+        }
+    }
+
+    const total = await Jugador.count();
+    console.log(`Sincronizacion completa: ${total} jugadores en la BD`);
 }
 
 function normalizePosition(pos: string | null) {

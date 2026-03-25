@@ -28,6 +28,7 @@ import cors from "cors";
 
 import Temporada from "./models/temporadas.models";
 import Jornada from "./models/jornadas.models";
+import Jugador from "./models/jugadores.model";
 import Usuario from "./models/usuario.models";
 import bcrypt from "bcrypt";
 
@@ -101,6 +102,19 @@ async function seedInitialData() {
     }
 }
 
+async function syncPlayersIfNeeded() {
+    const jugadorCount = await Jugador.count();
+    if (jugadorCount === 0) {
+        console.log("No hay jugadores en la BD. Descargando antes de arrancar...");
+        await getPlayersFromApi();
+    } else {
+        console.log(`${jugadorCount} jugadores ya en la BD. Actualizando en segundo plano...`);
+        getPlayersFromApi().catch((error) => {
+            console.error("No se pudo sincronizar jugadores desde API externa:", error);
+        });
+    }
+}
+
 async function startDbConnection(){
     try {
         await testConnectionDB();
@@ -108,6 +122,7 @@ async function startDbConnection(){
         console.log("Tablas sincronizadas correctamente");
         await createViewsAndExtensions();
         await seedInitialData();
+        await syncPlayersIfNeeded();
         await logTablesFound();
         server = app.listen(port, ()=> console.log(`Server started on port: ${port}`));
     } catch (error) {
@@ -138,8 +153,4 @@ for (const signal of shutdownSignals) {
     });
 }
 
-startDbConnection().then(() => {
-    getPlayersFromApi().catch((error) => {
-        console.error("No se pudo sincronizar jugadores desde API externa:", error);
-    });
-});
+void startDbConnection();
