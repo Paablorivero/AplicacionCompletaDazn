@@ -25,6 +25,11 @@ import {authMiddleware} from "./middleware/authmiddleware/auth.middleware";
 
 import cors from "cors";
 
+import Temporada from "./models/temporadas.models";
+import Jornada from "./models/jornadas.models";
+import Usuario from "./models/usuario.models";
+import bcrypt from "bcrypt";
+
 dotenv.config();
 
 const app = express();
@@ -63,11 +68,42 @@ app.use('/daznfntsy', authMiddleware, routerJornadas);
 
 app.use(errorHandler);
 
+async function seedInitialData() {
+    const temporadaCount = await Temporada.count();
+    if (temporadaCount === 0) {
+        const temporada = await Temporada.create({
+            fInicio: '2025-08-16',
+            fFin: '2026-06-15',
+            jornadaActual: 1
+        });
+        await Jornada.create({
+            fInicio: '2025-08-16',
+            fFin: '2025-08-18',
+            temporadaId: temporada.temporadaId
+        });
+        console.log("Seed: temporada y jornada inicial creadas");
+    }
+
+    const adminCount = await Usuario.count({ where: { rol: 'admin' } });
+    if (adminCount === 0) {
+        const hash = await bcrypt.hash('adminDazn', 10);
+        await Usuario.create({
+            username: 'admin',
+            email: 'admin@daznfantasy.local',
+            passwordHash: hash,
+            rol: 'admin',
+            fechaNacimiento: '1990-01-01'
+        });
+        console.log("Seed: usuario admin creado (admin / adminDazn)");
+    }
+}
+
 async function startDbConnection(){
     try {
         await testConnectionDB();
         await sequelize.sync();
         console.log("Tablas sincronizadas correctamente");
+        await seedInitialData();
         server = app.listen(port, ()=> console.log(`Server started on port: ${port}`));
     } catch (error) {
         console.error("Error arrancando el servidor:", error);
