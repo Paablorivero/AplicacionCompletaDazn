@@ -35,7 +35,7 @@ let server: ReturnType<typeof app.listen> | null = null;
 relationsModels();
 
 app.use(cors({
-    origin: 'https://daznfantasy.vercel.app/',
+    origin: 'https://daznfantasy.vercel.app',
     credentials: true
 }));
 

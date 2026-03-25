@@ -20,6 +20,10 @@ const swaggerDefinition: SwaggerDefinition = {
     },
     servers: [
         {
+            url: 'https://daznfntsy.up.railway.app/daznfntsy',
+            description: 'Servidor de producción',
+        },
+        {
             url: 'http://localhost:3000/daznfntsy',
             description: 'Servidor local',
         },
