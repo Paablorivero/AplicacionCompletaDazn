@@ -26,6 +26,11 @@ export async function testConnectionDB(){
     try{
         await sequelize.authenticate();
         console.log('Sequelize authenticated successfully in ' + sequelize.getDatabaseName());
+
+        const [results] = await sequelize.query(
+            `SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;`
+        );
+        console.log('Tablas encontradas en public:', results.map((r: any) => r.table_name));
     }catch(error){
         console.error('Sequelize authenticated failed: ' + error);
         process.exit(1);

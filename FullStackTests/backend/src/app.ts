@@ -4,7 +4,7 @@ import routerJugadores from "./routes/jugadores.routes";
 
 import { getPlayersFromApi} from "./footballapi/footballapi.service";
 
-import {testConnectionDB} from "./configs/dbconnection.config"
+import {testConnectionDB, sequelize} from "./configs/dbconnection.config"
 
 import swaggerUi from "swagger-ui-express";
 import {swaggerSpec} from "./configs/swaggerjsdoc.config";
@@ -24,6 +24,7 @@ import {errorHandler} from "./middleware/errorHandler.middleware";
 import {authMiddleware} from "./middleware/authmiddleware/auth.middleware";
 
 import cors from "cors";
+
 
 
 dotenv.config();
@@ -67,6 +68,8 @@ app.use(errorHandler);
 async function startDbConnection(){
     try {
         await testConnectionDB();
+        await sequelize.sync();
+        console.log("Tablas sincronizadas correctamente");
         server = app.listen(port, ()=> console.log(`Server started on port: ${port}`));
     } catch (error) {
         console.error("Error arrancando el servidor:", error);
@@ -96,8 +99,8 @@ for (const signal of shutdownSignals) {
     });
 }
 
-void startDbConnection();
-
-getPlayersFromApi().catch((error) => {
-    console.error("No se pudo sincronizar jugadores desde API externa:", error);
+startDbConnection().then(() => {
+    getPlayersFromApi().catch((error) => {
+        console.error("No se pudo sincronizar jugadores desde API externa:", error);
+    });
 });
