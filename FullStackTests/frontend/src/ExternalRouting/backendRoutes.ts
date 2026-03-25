@@ -66,3 +66,8 @@ export const jugadoresUrl: string = `https://daznfntsy.up.railway.app/daznfntsy/
  * Endpoint base de jornadas.
  */
 export const jornadasUrl: string = `https://daznfntsy.up.railway.app/daznfntsy/jornadas`;
+
+/**
+ * Proxy de noticias (NewsAPI no permite llamadas desde el navegador en producción).
+ */
+export const noticiasUrl: string = `https://daznfntsy.up.railway.app/daznfntsy/noticias`;

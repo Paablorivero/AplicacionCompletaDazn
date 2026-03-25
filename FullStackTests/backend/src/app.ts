@@ -4,7 +4,7 @@ import routerJugadores from "./routes/jugadores.routes";
 
 import { getPlayersFromApi} from "./footballapi/footballapi.service";
 
-import {testConnectionDB, sequelize} from "./configs/dbconnection.config"
+import {testConnectionDB, sequelize, createViewsAndExtensions, logTablesFound} from "./configs/dbconnection.config"
 
 import swaggerUi from "swagger-ui-express";
 import {swaggerSpec} from "./configs/swaggerjsdoc.config";
@@ -17,6 +17,7 @@ import routerJornadas from "./routes/jornadas.routes";
 import routerAlineaciones from "./routes/alineaciones.routes";
 import routerAuth from "./routes/auth.routes";
 import routerPlantillas from "./routes/plantillas.routes";
+import routerNoticias from "./routes/noticias.routes";
 
 import {relationsModels} from "./models/relations.models";
 import {errorHandler} from "./middleware/errorHandler.middleware";
@@ -66,6 +67,8 @@ app.use('/daznfntsy', authMiddleware, routerTemporadas);
 
 app.use('/daznfntsy', authMiddleware, routerJornadas);
 
+app.use('/daznfntsy', authMiddleware, routerNoticias);
+
 app.use(errorHandler);
 
 async function seedInitialData() {
@@ -103,7 +106,9 @@ async function startDbConnection(){
         await testConnectionDB();
         await sequelize.sync();
         console.log("Tablas sincronizadas correctamente");
+        await createViewsAndExtensions();
         await seedInitialData();
+        await logTablesFound();
         server = app.listen(port, ()=> console.log(`Server started on port: ${port}`));
     } catch (error) {
         console.error("Error arrancando el servidor:", error);
