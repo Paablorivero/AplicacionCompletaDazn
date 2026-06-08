@@ -1,3 +1,17 @@
+:host {
+  display: block;
+}
+
+:host-context(.bench-slot) {
+  width: 100%;
+}
+
+:host-context(.bench-slot) .fut-card {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .fut-card {
   position: relative;
   width: 95px;

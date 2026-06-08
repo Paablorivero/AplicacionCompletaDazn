@@ -181,7 +181,7 @@
 
 .bench-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
   gap: 0.6rem;
 }
 
@@ -220,18 +220,30 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 0.4rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.bench-slot app-jugador-alineacion {
+  display: block;
+  width: 100%;
 }
 
 .sell-btn {
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid rgba(255, 95, 95, 0.45);
   background: rgba(255, 95, 95, 0.12);
   color: #ffb4b4;
   border-radius: 10px;
-  padding: 0.32rem 0.5rem;
+  padding: 0.38rem 0.5rem;
   font-size: 0.72rem;
   font-weight: 700;
+  text-align: center;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .sell-btn:disabled {
@@ -344,5 +356,9 @@
     right: 12px;
     left: 12px;
     max-width: none;
+  }
+
+  .bench-grid {
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   }
 }

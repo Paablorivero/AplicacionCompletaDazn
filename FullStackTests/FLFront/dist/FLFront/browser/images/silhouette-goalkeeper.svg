@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <g opacity="0.18">
+    <!-- Portero: postura de parada con brazos extendidos -->
+    <circle cx="100" cy="42" r="18" fill="#f59e0b"/>
+    <path d="M100 60 L100 160" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+    <!-- Brazos extendidos -->
+    <path d="M100 85 L40 55" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M100 85 L160 55" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+    <!-- Manos abiertas -->
+    <path d="M40 55 L30 45 M40 55 L32 60 M40 55 L45 48" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M160 55 L170 45 M160 55 L168 60 M160 55 L155 48" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+    <!-- Piernas semiflexionadas -->
+    <path d="M100 160 L75 220 L65 280" stroke="#f59e0b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M100 160 L125 220 L135 280" stroke="#f59e0b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Pies -->
+    <path d="M65 280 L50 282" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+    <path d="M135 280 L150 282" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>

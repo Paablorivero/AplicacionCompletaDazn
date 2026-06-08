@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <g opacity="0.18">
+    <!-- Defensa: postura firme, piernas abiertas, brazos ligeramente separados -->
+    <circle cx="100" cy="38" r="18" fill="#3b82f6"/>
+    <path d="M100 56 L100 165" stroke="#3b82f6" stroke-width="8" stroke-linecap="round"/>
+    <!-- Brazos en posicion defensiva -->
+    <path d="M100 80 L55 110" stroke="#3b82f6" stroke-width="7" stroke-linecap="round"/>
+    <path d="M100 80 L145 110" stroke="#3b82f6" stroke-width="7" stroke-linecap="round"/>
+    <!-- Puños -->
+    <circle cx="55" cy="110" r="5" fill="#3b82f6"/>
+    <circle cx="145" cy="110" r="5" fill="#3b82f6"/>
+    <!-- Piernas abiertas y firmes -->
+    <path d="M100 165 L65 230 L60 285" stroke="#3b82f6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M100 165 L135 230 L140 285" stroke="#3b82f6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Pies -->
+    <path d="M60 285 L45 287" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
+    <path d="M140 285 L155 287" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>
