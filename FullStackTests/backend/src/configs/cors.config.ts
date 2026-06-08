@@ -1,5 +1,5 @@
 import type { CorsOptions } from "cors";
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 
 const DEFAULT_ORIGINS = [
     "https://daznfantasy.vercel.app",
@@ -12,28 +12,44 @@ function normalizeOrigin(origin: string): string {
     return origin.trim().replace(/\/$/, "");
 }
 
-function parseAllowedOrigins(): Set<string> {
+function parseEnvOrigins(): string[] {
     const raw = process.env.CORS_ORIGINS?.trim();
-    const origins = raw
-        ? raw.split(",").map(normalizeOrigin).filter(Boolean)
-        : DEFAULT_ORIGINS.map(normalizeOrigin);
+    if (!raw) {
+        return [];
+    }
 
-    return new Set(origins);
+    return raw.split(",").map(normalizeOrigin).filter(Boolean);
+}
+
+function getAllowedOrigins(): Set<string> {
+    return new Set([
+        ...DEFAULT_ORIGINS.map(normalizeOrigin),
+        ...parseEnvOrigins(),
+    ]);
 }
 
 export function isAllowedOrigin(origin: string | undefined): boolean {
-    if (!origin) {
+    if (!origin || origin === "null") {
         return true;
     }
 
     const normalized = normalizeOrigin(origin);
-    const allowed = parseAllowedOrigins();
 
-    if (allowed.has(normalized)) {
+    if (getAllowedOrigins().has(normalized)) {
         return true;
     }
 
-    return /^https:\/\/(www\.)?daznfantasy[\w.-]*\.vercel\.app$/i.test(normalized);
+    // Cualquier despliegue en Vercel (producción, previews, alias).
+    if (/^https:\/\/[\w.-]+\.vercel\.app$/i.test(normalized)) {
+        return true;
+    }
+
+    // Desarrollo local en cualquier puerto.
+    if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(normalized)) {
+        return true;
+    }
+
+    return false;
 }
 
 export const corsOptions: CorsOptions = {
@@ -57,4 +73,26 @@ export function applyCorsHeaders(req: Request, res: Response): void {
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.setHeader("Vary", "Origin");
     }
+}
+
+export function corsHeadersMiddleware(req: Request, res: Response, next: NextFunction): void {
+    const origin = req.headers.origin;
+
+    if (typeof origin === "string" && isAllowedOrigin(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
+        res.setHeader(
+            "Access-Control-Allow-Headers",
+            req.headers["access-control-request-headers"] ?? "Content-Type, Authorization"
+        );
+        res.setHeader("Vary", "Origin");
+    }
+
+    if (req.method === "OPTIONS") {
+        res.sendStatus(204);
+        return;
+    }
+
+    next();
 }

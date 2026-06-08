@@ -25,7 +25,7 @@ import {errorHandler} from "./middleware/errorHandler.middleware";
 import {authMiddleware} from "./middleware/authmiddleware/auth.middleware";
 
 import cors from "cors";
-import { corsOptions } from "./configs/cors.config";
+import { corsHeadersMiddleware, corsOptions } from "./configs/cors.config";
 
 import Temporada from "./models/temporadas.models";
 import Jornada from "./models/jornadas.models";
@@ -42,7 +42,7 @@ let server: ReturnType<typeof app.listen> | null = null;
 relationsModels();
 
 app.use(cors(corsOptions));
-
+app.use(corsHeadersMiddleware);
 
 app.use(express.json());
 
