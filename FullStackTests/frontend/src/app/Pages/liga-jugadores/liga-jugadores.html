@@ -65,7 +65,8 @@
     </div>
 
     <div class="jugadores-desktop-table max-h-[72vh] overflow-auto rounded-box border border-white/10 bg-base-200/30">
-      <table class="table table-zebra">
+      <div class="jugadores-table-scroll overflow-x-auto">
+      <table class="table table-zebra jugadores-table">
         <thead>
           <tr>
             <th>{{ 'players.table.player' | t }}</th>
@@ -94,19 +95,19 @@
                   </div>
                 </div>
               </td>
-              <td>
-                <div class="flex items-center gap-2">
+              <td class="jugadores-team-cell">
+                <div class="jugadores-team-wrap">
                   @if (jugador.equipoProfesionalLogo) {
-                    <img class="h-4 w-4 object-contain" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
+                    <img class="jugadores-team-logo" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
                   }
-                  <span>{{ jugador.equipoProfesionalNombre }}</span>
+                  <span class="jugadores-team-name" [title]="jugador.equipoProfesionalNombre">{{ jugador.equipoProfesionalNombre }}</span>
                 </div>
               </td>
               <td>{{ posicionLabel(jugador.posicion) }}</td>
               <td class="font-bold text-warning">{{ precioEuros(jugador.valor) }}</td>
               <td>{{ jugador.nacionalidad || '--' }}</td>
-              <td>
-                <span class="badge" [class.badge-success]="jugador.tieneEquipoEnLiga" [class.badge-ghost]="!jugador.tieneEquipoEnLiga">
+              <td class="jugadores-status-cell">
+                <span class="jugadores-status-badge badge" [class.badge-success]="jugador.tieneEquipoEnLiga" [class.badge-ghost]="!jugador.tieneEquipoEnLiga">
                   {{ estadoJugador(jugador) }}
                 </span>
               </td>
@@ -114,6 +115,7 @@
           }
         </tbody>
       </table>
+      </div>
     </div>
 
     <div class="jugadores-mobile-list">

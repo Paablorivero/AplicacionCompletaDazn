@@ -164,6 +164,8 @@
   "dashboard.lineup": "Lineup",
   "dashboard.market": "Market",
   "dashboard.players": "Players",
+  "dashboard.openMenu": "Menu",
+  "dashboard.closeMenu": "Close menu",
 
   "classification.backToMenu": "Back to menu",
   "classification.title": "Classification",

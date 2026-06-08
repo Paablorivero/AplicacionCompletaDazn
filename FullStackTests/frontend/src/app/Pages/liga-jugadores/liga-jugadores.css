@@ -1,3 +1,79 @@
+.jugadores-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.jugadores-table th,
+.jugadores-table td {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.jugadores-table th:nth-child(1),
+.jugadores-table td:nth-child(1) {
+  width: 24%;
+}
+
+.jugadores-table th:nth-child(2),
+.jugadores-table td:nth-child(2) {
+  width: 22%;
+}
+
+.jugadores-table th:nth-child(3),
+.jugadores-table td:nth-child(3) {
+  width: 12%;
+}
+
+.jugadores-table th:nth-child(4),
+.jugadores-table td:nth-child(4) {
+  width: 12%;
+}
+
+.jugadores-table th:nth-child(5),
+.jugadores-table td:nth-child(5) {
+  width: 14%;
+}
+
+.jugadores-table th:nth-child(6),
+.jugadores-table td:nth-child(6) {
+  width: 16%;
+}
+
+.jugadores-team-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.jugadores-team-logo {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.jugadores-team-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jugadores-status-cell {
+  text-align: center;
+}
+
+.jugadores-status-badge {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
 .jugadores-mobile-list {
   display: none;
 }
@@ -25,6 +101,7 @@
   align-items: center;
   gap: 0.7rem;
   margin-bottom: 0.7rem;
+  min-width: 0;
 }
 
 .jugador-mobile-name {
@@ -32,32 +109,52 @@
   color: #fff;
   font-weight: 700;
   font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jugador-mobile-sub {
   margin: 0.15rem 0 0;
   color: rgba(255, 255, 255, 0.62);
   font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jugador-mobile-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 0.75rem;
   padding: 0.38rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.62);
+  min-width: 0;
 }
 
 .jugador-mobile-value {
   color: rgba(255, 255, 255, 0.9);
   text-align: right;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jugador-mobile-price {
   color: rgb(250 204 21);
   font-weight: 700;
+  flex-shrink: 0;
+}
+
+.jugador-mobile-row .badge {
+  max-width: 58%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 900px) {
@@ -67,5 +164,6 @@
 
   .jugadores-mobile-list {
     display: block;
+    max-height: none;
   }
 }

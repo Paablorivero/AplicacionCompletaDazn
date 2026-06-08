@@ -1,1 +1,132 @@
-/* Estilos movidos a Tailwind + DaisyUI en el template */
+.dashboard-layout {
+  position: relative;
+}
+
+.dashboard-mobile-bar {
+  display: none;
+}
+
+.dashboard-backdrop {
+  display: none;
+}
+
+.dashboard-sidebar {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1023px) {
+  .dashboard-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(14, 14, 18, 0.72);
+    backdrop-filter: blur(16px);
+  }
+
+  .dashboard-mobile-summary {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .dashboard-mobile-league {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dashboard-mobile-team {
+    margin: 0.15rem 0 0;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dashboard-menu-toggle {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid rgba(255, 237, 0, 0.35);
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    background: rgba(255, 237, 0, 0.1);
+    color: #ffed00;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .dashboard-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 140;
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+  }
+
+  .dashboard-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 150;
+    width: min(300px, 88vw);
+    height: 100dvh;
+    overflow-y: auto;
+    transform: translateX(-105%);
+    border-radius: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 16px 0 48px rgba(0, 0, 0, 0.45);
+  }
+
+  .dashboard-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .dashboard-sidebar .card-body {
+    padding-top: 1.1rem;
+  }
+
+  .dashboard-sidebar-close {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.35rem;
+  }
+
+  .dashboard-sidebar-close button {
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 999px;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-sidebar-close {
+    display: none;
+  }
+}

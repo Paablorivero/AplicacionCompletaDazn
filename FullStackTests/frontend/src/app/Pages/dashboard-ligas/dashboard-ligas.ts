@@ -1,4 +1,4 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { EquipoligaService } from '../../Services/equipoliga.service';
 import { EquipoDataService } from '../../Services/equipo-data.service';
@@ -17,6 +17,7 @@ export class DashboardLigas implements OnInit {
   protected readonly equipoLigaService = inject(EquipoligaService);
   protected readonly equipoDataService = inject(EquipoDataService);
   private readonly usuariosService = inject(UsuariosService);
+  protected readonly sidebarOpen = signal(false);
 
   constructor() {
     effect(() => {
@@ -50,6 +51,14 @@ export class DashboardLigas implements OnInit {
       currency: 'EUR',
       maximumFractionDigits: 0
     }).format(presupuesto);
+  }
+
+  protected toggleSidebar(): void {
+    this.sidebarOpen.update((open) => !open);
+  }
+
+  protected cerrarSidebar(): void {
+    this.sidebarOpen.set(false);
   }
 
   protected goToClasificacionQueryParams() {

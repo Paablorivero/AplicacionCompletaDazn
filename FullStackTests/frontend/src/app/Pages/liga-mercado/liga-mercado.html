@@ -29,19 +29,19 @@
       @for (jugador of jugadoresMercado(); track jugador.jugadorId) {
         <article class="mercado-card card border border-white/10 bg-base-200/40 backdrop-blur-sm">
           <div class="card-body gap-4 p-4">
-            <div class="flex items-center gap-3">
+            <div class="flex min-w-0 items-center gap-3">
             <img
               class="h-[74px] w-[74px] rounded-full bg-white/10 object-cover"
               [src]="jugador.foto || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'"
               [alt]="jugador.nombre"
             />
-              <div>
-                <h3 class="text-lg font-semibold text-white">{{ jugador.nombre }}</h3>
-                <div class="mt-1 flex items-center gap-2 text-sm text-white/80">
+              <div class="min-w-0 flex-1">
+                <h3 class="mercado-player-name text-lg font-semibold text-white">{{ jugador.nombre }}</h3>
+                <div class="mt-1 flex min-w-0 items-center gap-2 text-sm text-white/80">
                 @if (jugador.equipoProfesionalLogo) {
-                    <img class="h-4 w-4 object-contain" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
+                    <img class="h-4 w-4 shrink-0 object-contain" [src]="jugador.equipoProfesionalLogo" [alt]="jugador.equipoProfesionalNombre" />
                 }
-                <span>{{ jugador.equipoProfesionalNombre }}</span>
+                <span class="mercado-team-name truncate" [title]="jugador.equipoProfesionalNombre">{{ jugador.equipoProfesionalNombre }}</span>
                 </div>
                 <span class="badge badge-outline mt-2">{{ etiquetaPosicion(jugador.posicion) }}</span>
               </div>

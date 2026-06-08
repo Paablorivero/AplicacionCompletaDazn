@@ -164,6 +164,8 @@
   "dashboard.lineup": "Alineació",
   "dashboard.market": "Mercat",
   "dashboard.players": "Jugadors",
+  "dashboard.openMenu": "Menú",
+  "dashboard.closeMenu": "Tancar menú",
 
   "classification.backToMenu": "Tornar al menú",
   "classification.title": "Taula de",

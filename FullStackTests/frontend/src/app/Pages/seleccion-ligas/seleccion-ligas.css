@@ -307,6 +307,26 @@
 .ligas-table {
   width: 100%;
   color: #f7f7f7;
+  table-layout: fixed;
+}
+
+.ligas-cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 0;
+}
+
+.ligas-cell-action {
+  width: 8.5rem;
+  white-space: nowrap;
+}
+
+.ligas-action-btn {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ligas-table th {
@@ -404,11 +424,105 @@
     gap: 0.55rem;
   }
 
+  .ligas-primary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .toolbar-stats {
     justify-content: space-between;
   }
 
+  .stat-pill {
+    flex: 1;
+  }
+
+  .hero-content {
+    padding: 0.85rem 0.9rem 0.95rem;
+  }
+
+  .hero-content .hero-title {
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
   .hero-content .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .seleccion-content {
+    padding: 0.75rem 0.75rem 2rem;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions .ligas-primary-btn,
+  .modal-actions .ligas-secondary-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .panel-scroll .overflow-x-auto {
+    overflow-x: visible;
+  }
+
+  .ligas-table {
+    min-width: 0 !important;
+  }
+
+  .ligas-table thead {
+    display: none;
+  }
+
+  .ligas-table tbody,
+  .ligas-table tr,
+  .ligas-table td {
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+
+  .ligas-table-row {
+    margin-bottom: 0.65rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.8rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .ligas-table td {
+    padding: 0.28rem 0;
+    border: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+
+  .ligas-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 237, 0, 0.75);
+  }
+
+  .ligas-cell-action {
+    width: auto;
+    padding-top: 0.45rem;
+  }
+
+  .ligas-cell-action::before {
+    display: none;
+  }
+
+  .ligas-action-btn {
+    width: 100%;
+    white-space: normal;
   }
 }

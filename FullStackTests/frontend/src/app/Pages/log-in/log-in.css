@@ -1,1 +1,19 @@
-/* Estilos de auth migrados a src/styles.css para evitar duplicidad entre login y registro. */
+@media (max-width: 640px) {
+  .hero-content .card-body {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .hero-content form .flex {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .hero-content form .divider-horizontal {
+    display: none;
+  }
+
+  .hero-content form .btn {
+    max-width: none;
+    width: 100%;
+  }
+}

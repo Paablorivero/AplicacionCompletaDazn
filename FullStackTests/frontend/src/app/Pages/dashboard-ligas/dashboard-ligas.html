@@ -1,10 +1,33 @@
 <div class="mx-auto w-full max-w-[1400px] px-3 py-3 md:px-4">
   @if (equipoLigaService.ligaSeleccionada()) {
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr]">
-      <!-- Sidebar de navegación de la liga activa. -->
-      <aside class="card border border-white/8 bg-base-200/20 backdrop-blur-2xl lg:sticky lg:top-20 lg:h-fit" style="box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.04);">
+    <div class="dashboard-layout grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr]">
+      <div
+        class="dashboard-backdrop"
+        [class.is-visible]="sidebarOpen()"
+        (click)="cerrarSidebar()"
+        aria-hidden="true"
+      ></div>
+
+      <div class="dashboard-mobile-bar lg:hidden">
+        <div class="dashboard-mobile-summary">
+          <p class="dashboard-mobile-league">{{ equipoLigaService.ligaSeleccionada()?.nombreLiga }}</p>
+          <p class="dashboard-mobile-team">{{ nombreEquipo() }}</p>
+        </div>
+        <button type="button" class="dashboard-menu-toggle" (click)="toggleSidebar()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          {{ 'dashboard.openMenu' | t }}
+        </button>
+      </div>
+
+      <aside class="dashboard-sidebar card border border-white/8 bg-base-200/20 backdrop-blur-2xl lg:sticky lg:top-20 lg:h-fit" [class.is-open]="sidebarOpen()" style="box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.04);">
         <div class="card-body p-4">
-          <a routerLink="/daznfantasy/leagues" class="btn btn-warning btn-sm text-black">
+          <div class="dashboard-sidebar-close lg:hidden">
+            <button type="button" (click)="cerrarSidebar()" [attr.aria-label]="'dashboard.closeMenu' | t">×</button>
+          </div>
+
+          <a routerLink="/daznfantasy/leagues" class="btn btn-warning btn-sm text-black" (click)="cerrarSidebar()">
             {{ 'dashboard.changeLeague' | t }}
           </a>
 
@@ -35,7 +58,8 @@
                 routerLink="/daznfantasy/liga/clasificacion"
                 [queryParams]="goToClasificacionQueryParams()"
                 routerLinkActive="menu-active !bg-warning !text-black"
-                [routerLinkActiveOptions]="{ exact: true }">
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="cerrarSidebar()">
                 {{ 'dashboard.classification' | t }}
               </a>
             </li>
@@ -43,7 +67,8 @@
               <a
                 routerLink="/daznfantasy/liga/plantilla"
                 routerLinkActive="menu-active !bg-warning !text-black"
-                [routerLinkActiveOptions]="{ exact: true }">
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="cerrarSidebar()">
                 {{ 'dashboard.lineup' | t }}
               </a>
             </li>
@@ -51,7 +76,8 @@
               <a
                 routerLink="/daznfantasy/liga/mercado"
                 routerLinkActive="menu-active !bg-warning !text-black"
-                [routerLinkActiveOptions]="{ exact: true }">
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="cerrarSidebar()">
                 {{ 'dashboard.market' | t }}
               </a>
             </li>
@@ -59,7 +85,8 @@
               <a
                 routerLink="/daznfantasy/liga/jugadores"
                 routerLinkActive="menu-active !bg-warning !text-black"
-                [routerLinkActiveOptions]="{ exact: true }">
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="cerrarSidebar()">
                 {{ 'dashboard.players' | t }}
               </a>
             </li>
@@ -67,8 +94,7 @@
         </div>
       </aside>
 
-      <!-- Área de contenido dinámico según la ruta hija seleccionada. -->
-      <section class="min-w-0">
+      <section class="min-w-0 lg:col-start-2">
         <router-outlet></router-outlet>
       </section>
     </div>

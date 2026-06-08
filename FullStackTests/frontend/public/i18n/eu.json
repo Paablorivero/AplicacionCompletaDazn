@@ -164,6 +164,8 @@
   "dashboard.lineup": "Alineazioa",
   "dashboard.market": "Merkatua",
   "dashboard.players": "Jokalariak",
+  "dashboard.openMenu": "Menua",
+  "dashboard.closeMenu": "Itxi menua",
 
   "classification.backToMenu": "Menura itzuli",
   "classification.title": "Sailkapen",

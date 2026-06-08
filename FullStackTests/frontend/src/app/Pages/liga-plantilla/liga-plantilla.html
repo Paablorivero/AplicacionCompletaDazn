@@ -14,6 +14,7 @@
   } @else if (titulares.Goalkeeper.length > 0 || titulares.Defender.length > 0 || titulares.Midfielder.length > 0 || titulares.Attacker.length > 0) {
     <!-- Campo visual con titulares organizados por posición. -->
     <section class="pitch">
+      <div class="pitch-inner">
       <div class="pitch-row attackers-row">
         @for (jugador of titulares.Attacker; track jugador.jugadorId; let i = $index) {
           <div
@@ -80,6 +81,7 @@
               [selected]="selectedTitular?.jugadorId === jugador.jugadorId"></app-jugador-alineacion>
           </div>
         }
+      </div>
       </div>
     </section>
 

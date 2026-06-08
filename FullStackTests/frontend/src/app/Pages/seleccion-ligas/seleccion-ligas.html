@@ -90,11 +90,11 @@
                 </thead>
                 <tbody>
                   @for (liga of ligasUnidas; track liga.equipoId) {
-                    <tr>
-                      <td>{{ liga.nombreLiga }}</td>
-                      <td>{{ liga.nombreEquipo }}</td>
-                      <td>
-                        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="mostrarPlantilla(liga)">
+                    <tr class="ligas-table-row">
+                      <td class="ligas-cell-text" [attr.data-label]="'leagues.table.league' | t" [title]="liga.nombreLiga">{{ liga.nombreLiga }}</td>
+                      <td class="ligas-cell-text" [attr.data-label]="'leagues.table.team' | t" [title]="liga.nombreEquipo">{{ liga.nombreEquipo }}</td>
+                      <td class="ligas-cell-action" [attr.data-label]="'leagues.table.action' | t">
+                        <button class="ligas-primary-btn ligas-primary-btn-sm ligas-action-btn" (click)="mostrarPlantilla(liga)">
                           {{ 'leagues.showSquad' | t }}
                         </button>
                       </td>
@@ -129,10 +129,10 @@
                 </thead>
                 <tbody>
                   @for (liga of ligasDisponibles; track liga.ligaId) {
-                    <tr>
-                      <td>{{ liga.nombreLiga }}</td>
-                      <td>
-                        <button class="ligas-primary-btn ligas-primary-btn-sm" (click)="abrirModal(liga)">
+                    <tr class="ligas-table-row">
+                      <td class="ligas-cell-text" [attr.data-label]="'leagues.table.league' | t" [title]="liga.nombreLiga">{{ liga.nombreLiga }}</td>
+                      <td class="ligas-cell-action" [attr.data-label]="'leagues.table.action' | t">
+                        <button class="ligas-primary-btn ligas-primary-btn-sm ligas-action-btn" (click)="abrirModal(liga)">
                           {{ 'leagues.join' | t }}
                         </button>
                       </td>
