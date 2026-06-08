@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { registrarNuevoUsuario, loginUsuario } from "../controllers/usuarios.controller";
+import { getTemporadaActivaPublic } from "../controllers/temporadas.controllers";
 import { emptyFields } from "../middleware/emptyFields.middleware";
 import { fechaValidate } from "../middleware/fechaValidate.middleware";
 
 const routerAuth = Router();
+
+routerAuth.get("/temporadas/actual", getTemporadaActivaPublic);
 
 /**
  * @swagger

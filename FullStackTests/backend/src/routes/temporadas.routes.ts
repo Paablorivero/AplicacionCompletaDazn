@@ -1,7 +1,6 @@
 import {
     actualizarMercadoAdmin,
     getAllTemporadas,
-    getTemporadaActivaPublic,
     getTemporadaByFecha,
     getTemporadaById,
     createTemporada,
@@ -20,7 +19,6 @@ const routerTemporadas: Router = Router();
 
 // routerTemporadas.post("/temporadas/create", validateDatesInitEnd("fInicio", "fFin"), createTemporada);
 
-routerTemporadas.get("/temporadas/actual", getTemporadaActivaPublic);
 routerTemporadas.get("/temporadas/:temporadaId", validateNumericParam("temporadaId"), getTemporadaById);
 
 routerTemporadas.get("/temporadas/admin/jornada/estado", adminAuthMiddleware, estadoJornadaAdmin);

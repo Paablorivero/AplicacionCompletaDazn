@@ -25,6 +25,7 @@ import {errorHandler} from "./middleware/errorHandler.middleware";
 import {authMiddleware} from "./middleware/authmiddleware/auth.middleware";
 
 import cors from "cors";
+import { corsOptions } from "./configs/cors.config";
 
 import Temporada from "./models/temporadas.models";
 import Jornada from "./models/jornadas.models";
@@ -40,39 +41,7 @@ let server: ReturnType<typeof app.listen> | null = null;
 
 relationsModels();
 
-const defaultAllowedOrigins = [
-    "https://daznfantasy.vercel.app",
-    "https://www.daznfantasy.vercel.app",
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
-];
-
-const allowedOrigins = new Set(
-    (process.env.CORS_ORIGINS ?? defaultAllowedOrigins.join(","))
-        .split(",")
-        .map((origin) => origin.trim())
-        .filter(Boolean)
-);
-
-function isAllowedOrigin(origin: string): boolean {
-    if (allowedOrigins.has(origin)) {
-        return true;
-    }
-
-    return /^https:\/\/daznfantasy[a-z0-9-]*\.vercel\.app$/.test(origin);
-}
-
-app.use(cors({
-    origin(origin, callback) {
-        if (!origin || isAllowedOrigin(origin)) {
-            callback(null, true);
-            return;
-        }
-
-        callback(new Error(`CORS bloqueado para origen: ${origin}`));
-    },
-    credentials: true,
-}));
+app.use(cors(corsOptions));
 
 
 app.use(express.json());
